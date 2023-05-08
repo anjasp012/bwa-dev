@@ -43,7 +43,7 @@
                                     <tr>
                                         <td style="width: 20%;">
                                             @if ($cart->product->galleries->count() > 0)
-                                                <img src="{{ asset($cart->product->galleries->first()->photos) }}"
+                                                <img src="{{ asset($cart->product->galleries->first()->getPhotos()) }}"
                                                     alt="" class="cart-image">
                                             @endif
                                         </td>
@@ -94,22 +94,22 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="address_one">Addres 1</label>
-                                <input type="text" class="form-control" id="address_one" name="address_one"
-                                    value="Setra Duta Cemara">
+                                <input type="text" required class="form-control" id="address_one" name="address_one"
+                                    value="{{ auth()->user()->address_one ?? '' }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="address_two">Addres 2</label>
-                                <input type="text" class="form-control" id="address_two" name="address_two"
-                                    value="Blok B2 No. 34">
+                                <input type="text" required class="form-control" id="address_two" name="address_two"
+                                    value="{{ auth()->user()->address_two ?? '' }}">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="province_id">Province</label>
                                 <select name="province_id" id="province_id" class="form-select" v-if="provincies"
-                                    v-model="province_id">
+                                    v-model="province_id" required>
                                     <option v-for="province in provincies" :value="province.id">@{{ province.name }}
                                     </option>
                                 </select>
@@ -119,7 +119,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="regency_id">Regency</label>
-                                <select name="regency_id" id="regency_id" class="form-select" v-if="provincies"
+                                <select name="regency_id" required id="regency_id" class="form-select" v-if="provincies"
                                     v-model="regency_id">
                                     <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}
                                     </option>
@@ -130,21 +130,22 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="zip_code">Postal Code</label>
-                                <input type="text" class="form-control" id="zip_code" name="zip_code" value="123999">
+                                <input type="text" required class="form-control" id="zip_code" name="zip_code"
+                                    value="{{ auth()->user()->zip_code ?? '' }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="country">Country</label>
-                                <input type="text" class="form-control" id="country" name="country"
-                                    value="Indonesia">
+                                <input type="text" required class="form-control" id="country" name="country"
+                                    value="{{ auth()->user()->country ?? '' }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="phone_number">Mobile</label>
-                                <input type="text" class="form-control" id="phone_number" name="phone_number"
-                                    value="+628 2020 11111">
+                                <input type="text" required class="form-control" id="phone_number"
+                                    name="phone_number" value="{{ auth()->user()->phone_number ?? '' }}">
                             </div>
                         </div>
                     </div>
@@ -154,16 +155,16 @@
                         </div>
                     </div>
                     <div class="row" data-aos="fade-up" data-aos-delay="200">
-                        <div class="col-4 col-md-2">
-                            <div class="product-title">$10</div>
-                            <div class="product-subtitle">Country Tax</div>
+                        <div class="col-4 col-md-3">
+                            <div class="product-title">Rp.0</div>
+                            <div class="product-subtitle">Tax</div>
                         </div>
                         <div class="col-4 col-md-3">
-                            <div class="product-title">$280</div>
-                            <div class="product-subtitle">Producr Insurent</div>
+                            <div class="product-title">Rp.0</div>
+                            <div class="product-subtitle">Product Insurent</div>
                         </div>
                         <div class="col-4 col-md-2">
-                            <div class="product-title">$580</div>
+                            <div class="product-title">Rp.0</div>
                             <div class="product-subtitle">Ship to Jakarta</div>
                         </div>
                         <div class="col-4 col-md-2">
@@ -191,12 +192,13 @@
             mounted() {
                 AOS.init();
                 this.getProvinciesData();
+                this.getRegenciesData();
             },
             data: {
                 provincies: null,
                 regencies: null,
-                province_id: null,
-                regency_id: null,
+                province_id: {{ auth()->user()->province_id ?? 'null' }},
+                regency_id: {{ auth()->user()->regency_id ?? 'null' }},
             },
             methods: {
                 getProvinciesData() {

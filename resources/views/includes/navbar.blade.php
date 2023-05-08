@@ -1,13 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-store fixed-top navbar-fixed-top" data-aos="fade-down">
-    <div class="container">
-        <a href="{{ route('home') }}" class="navbar-brand">
-            <img src="/images/logo.svg" alt="">
+    <div class="align-items-center container">
+        <a href="{{ route('home') }}" class="navbar-brand text-success fw-bold">
+            Store-Dev
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="navbar-collapse collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
+                <form action="{{ route('search') }}" class="d-inline-flex mx-5" role="search">
+                    <input class="form-control me-2" name="cari" required type="search" placeholder="pencarian..."
+                        aria-label="pencarian...">
+                    <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
+                </form>
                 <li class="nav-item">
                     <a href="{{ route('home') }}"
                         class="nav-link{{ request()->routeIs('home') ? ' active' : '' }}">Home</a>
@@ -17,7 +22,8 @@
                         class="nav-link{{ request()->routeIs('categories*') ? ' active' : '' }}">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Rewards</a>
+                    <a href="{{ route('berita.index') }}"
+                        class="nav-link{{ request()->routeIs('berita.*') ? ' active' : '' }}">Berita</a>
                 </li>
                 @guest
                     <li class="nav-item">
@@ -32,11 +38,13 @@
                 <ul class="navbar-nav d-none d-lg-flex">
                     <li class="nav-item dropdown">
                         <a href="" class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <img src="/images/user_pc.png" alt="" class="rounded-circle mr-2 profile-picture">
-                            Hi, {{ Auth::user()->name }}
+                            <img src="/images/user_pc.png" alt="" class="rounded-circle profile-picture mr-2">
+
                         </a>
                         <div class="dropdown-menu">
-                            <a href="{{ route('dashboard') }}" class="dropdown-item">Dashboard</a>
+                            <a class="dropdown-item">Hi, {{ Auth::user()->name }}</a>
+                            <a href="{{ auth()->user()->roles == 'ADMIN' ? '/admin' : route('dashboard') }}"
+                                class="dropdown-item">Dashboard</a>
                             <a href="{{ route('dashboard-settings-account') }}" class="dropdown-item">Settings</a>
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('logout') }}" class="dropdown-item"

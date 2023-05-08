@@ -13,6 +13,11 @@ class ProductGallery extends Model
 
     protected $hidden = [''];
 
+    public function getPhotos()
+    {
+        return '/storage/' .$this->photos;
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');

@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Auth;
+use App\Models\Category;
+use App\Models\ProductGallery;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardProductController extends Controller
 {
@@ -16,13 +20,60 @@ class DashboardProductController extends Controller
         ]);
     }
 
-    public function details()
+    public function details(string $id)
     {
-        return view('pages.dashboard-products-details');
+        $categories = Category::get();
+        $product = Product::find($id);
+        return view('pages.dashboard-products-details', [
+            'product' => $product,
+            'categories' => $categories
+        ]);
     }
 
     public function create()
     {
-        return view('pages.dashboard-products-create');
+        $categories = Category::get();
+        return view('pages.dashboard-products-create', [
+            'categories' => $categories
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'price' => ['required', 'numeric'],
+            'description' => ['required'],
+            'category_id' => ['required'],
+            'thumbnail' => ['required'],
+        ]);
+
+
+        DB::transaction(function () use ($request) {
+            $product = auth()->user()->products()->create([
+                'name' => $request->name,
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'slug' => Str::slug($request->name),
+                'description' => $request->description,
+            ]);
+            foreach ($request->file('thumbnail') as $imagefile) {
+                $name_pic = "product-" . Str::random(10) . '.' . $imagefile->extension();
+                $pic = new ProductGallery();
+                $imagefile->storeAs('public/assets/product', $name_pic);
+                $pic->photos = 'assets/product/' . $name_pic;
+                $pic->product_id = $product->id;
+                $pic->save();
+            };
+        });
+
+        return redirect(route('dashboard-product'));
+    }
+
+    public function deletephoto(string $id)
+    {
+        $photo = ProductGallery::find($id);
+        $photo->delete();
+        return back();
     }
 }

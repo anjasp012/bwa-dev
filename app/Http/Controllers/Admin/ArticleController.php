@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\CategoryRequest;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use Storage;
-use Yajra\DataTables\DataTables;
+use App\Models\Article;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ArticleRequest;
+use Yajra\DataTables\Facades\DataTables;
 
-use function Clue\StreamFilter\fun;
-
-class CategoryController extends Controller
+class ArticleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::query();
+            $query = Article::query();
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -30,8 +27,8 @@ class CategoryController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="' . route('category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
-                                    <form action="' . route("category.destroy", $item->id) .  '" method="POST">
+                                    <a href="' . route('news.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
+                                    <form action="' . route("news.destroy", $item->id) .  '" method="POST">
                                         ' . method_field('DELETE') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">Hapus</button>
                                     </form>
@@ -41,13 +38,13 @@ class CategoryController extends Controller
                     ';
                 })
                 ->editColumn('photo', function ($item) {
-                    return $item->photo ? '<img src="' . asset($item->getPhoto()) . '" style="max-width: 48px;" />' : '';
+                    return $item->thumbnail ? '<img src="' . asset($item->getPhoto()) . '" style="max-width: 240px;" />' : '';
                 })
                 ->rawColumns(['action', 'photo'])
                 ->make();
         }
 
-        return view('pages.admin.category.index');
+        return view('pages.admin.article.index');
     }
 
     /**
@@ -55,21 +52,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.category.create');
+        return view('pages.admin.article.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(ArticleRequest $request)
     {
         $data = $request->all();
 
-        $data['slug'] = Str::slug($request->name);
-        $data['photo'] = $request->file('photo')->store('assets/category', 'public');
-        Category::create($data);
+        $data['slug'] = Str::slug($request->title);
+        $data['thumbnail'] = $request->file('thumbnail')->store('assets/article', 'public');
+        Article::create($data);
 
-        return redirect()->route('category.index');
+        return redirect()->route('news.index');
     }
 
     /**
@@ -77,6 +74,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
+        //
     }
 
     /**
@@ -84,8 +82,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Category::findOrFail($id);
-        return view('pages.admin.category.edit', [
+        $item = Article::findOrFail($id);
+        return view('pages.admin.article.edit', [
             'item' => $item
         ]);
     }
@@ -93,17 +91,16 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(ArticleRequest $request, string $id)
     {
-        $item = Category::findOrFail($id);
+        $item = Article::findOrFail($id);
         $data = $request->all();
 
-        $data['slug'] = Str::slug($request->name);
-        $data['photo'] = $request->file('photo') ? $request->file('photo')->store('assets/category', 'public') : $item->photo;
+        $data['thumbnail'] = $request->file('thumbnail') ? $request->file('thumbnail')->store('assets/article', 'public') : $item->thumbnail;
 
         $item->update($data);
 
-        return redirect()->route('category.index');
+        return redirect()->route('news.index');
     }
 
     /**
@@ -111,7 +108,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $item = Category::findOrFail($id);
+        $item = Article::findOrFail($id);
         $item->delete();
 
         return redirect()->back();

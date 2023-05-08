@@ -38,6 +38,10 @@
                         class="list-group-item list-group-item-action{{ request()->routeIs('user.*') ? ' active' : '' }}">
                         Users
                     </a>
+                    <a href="{{ route('news.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('news.*') ? ' active' : '' }}">
+                        Berita
+                    </a>
                     <a href="{{ route('category.index') }}"
                         class="list-group-item list-group-item-action{{ request()->routeIs('category.*') ? ' active' : '' }}">
                         Categories
@@ -91,12 +95,6 @@
                                             @csrf
                                         </form>
                                     </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" class="nav-link d-inline-block mt-2">
-                                        <img src="/images/icon-cart-filled.svg" alt="">
-                                        <div class="cart-badge">3</div>
-                                    </a>
                                 </li>
                             </ul>
 

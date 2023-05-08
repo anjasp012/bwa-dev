@@ -13,30 +13,32 @@
             </div>
             <div class="dashboard-contennt">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="dashboard-card-title">
-                                    Customer
-                                </div>
-                                <div class="dashboard-card-subtitle">
-                                    {{ $customer }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <div class="dashboard-card-title">
-                                    Revenue
-                                </div>
-                                <div class="dashboard-card-subtitle">
-                                    Rp.{{ number_format($revenue) }}
+                    @if (Auth::user()->store_status == '1')
+                        <div class="col-md-4">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="dashboard-card-title">
+                                        Customer
+                                    </div>
+                                    <div class="dashboard-card-subtitle">
+                                        {{ $customer }}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-md-4">
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <div class="dashboard-card-title">
+                                        Revenue
+                                    </div>
+                                    <div class="dashboard-card-subtitle">
+                                        Rp.{{ number_format($revenue) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="col-md-4">
                         <div class="card mb-2">
                             <div class="card-body">

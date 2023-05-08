@@ -19,7 +19,7 @@ class DashboardController extends Controller
             return $carry + $item->price;
         });
 
-        $customer = User::count();
+        $customer = User::where('roles', '!=', 'ADMIN')->where('id', '!=', auth()->user()->id)->count();
         return view('pages.dashboard', [
             'transaction_count' => $transactions->count(),
             'transaction_data' => $transactions->get(),

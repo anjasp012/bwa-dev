@@ -13,4 +13,9 @@ class Category extends Model
     protected $fillable = ['name', 'photo', 'slug'];
 
     protected $hidden = [''];
+
+    public function getPhoto()
+    {
+        return '/storage/' .$this->photo;
+    }
 }

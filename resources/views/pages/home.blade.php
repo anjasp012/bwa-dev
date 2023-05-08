@@ -43,7 +43,7 @@
                             <a href="{{ route('categories-details', $category->slug) }}"
                                 class="component-categories d-block">
                                 <div class="categories-image">
-                                    <img src="{{ asset($category->photo) }}" alt="" class="w-100">
+                                    <img src="{{ asset($category->getPhoto()) }}" alt="" class="w-100">
                                 </div>
                                 <p class="categories-text">{{ $category->name }}</p>
                             </a>
@@ -69,14 +69,14 @@
                             <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
                                 <div class="products-thumbnail">
                                     <div class="products-image"
-                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->photos) . ');' : 'background-color:#eee;' }}>
+                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
                                     </div>
                                 </div>
                                 <div class="products-text">
                                     {{ $product->name }}
                                 </div>
                                 <div class="products-price">
-                                    Rp. {{ $product->price }}
+                                    Rp. {{ number_format($product->price) }}
                                 </div>
                             </a>
                         </div>

@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = User::query();
+            $query = User::query()->where('roles', '!=', 'ADMIN');
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
