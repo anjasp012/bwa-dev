@@ -15,11 +15,12 @@ class SearchController extends Controller
     {
         // dd($request->query);
         $categories = Category::where('name', 'like', "%" . $request->cari . "%")->get();
-        $products = Product::with('galleries')->where('name', 'like', "%" . $request->cari . "%")
+        $products = Product::with('galleries')->where('name', 'like', "%$request->cari%")
             ->paginate(32);
         return view('pages.pencarian', [
             'categories' => $categories,
             'products' => $products,
+            'cari' => $request->cari
         ]);
     }
 }

@@ -10,7 +10,7 @@
             <ul class="navbar-nav ms-auto">
                 <form action="{{ route('search') }}" class="d-inline-flex mx-5" role="search">
                     <input class="form-control me-2" name="cari" required type="search" placeholder="pencarian..."
-                        aria-label="pencarian...">
+                        aria-label="pencarian..." value="{{ $cari ?? '' }}">
                     <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
                 </form>
                 <li class="nav-item">
