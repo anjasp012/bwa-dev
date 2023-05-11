@@ -8,7 +8,7 @@
             <div class="dashboard-heading">
                 <h2 class="dashboard-title">Admin Dashboard</h2>
                 <p class="dashboard-subtitle">
-                    This Bwa Store Admin Panel
+                    This Reaa-Indonesia Admin Panel
                 </p>
             </div>
             <div class="dashboard-contennt">

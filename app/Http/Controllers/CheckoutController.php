@@ -20,7 +20,7 @@ class CheckoutController extends Controller
         $user = Auth::user();
         $user->update($request->except('total_price'));
 
-        $transaction_code = 'BWA-' . mt_rand(00000, 99999);
+        $transaction_code = 'REAA-' . mt_rand(00000, 99999);
         $carts = Cart::with(['product', 'user'])->where('user_id', Auth::user()->id)->get();
 
         $transaction = Transaction::create(
