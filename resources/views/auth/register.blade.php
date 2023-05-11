@@ -25,6 +25,18 @@
                                 @enderror
                             </div>
                             <div class="form-group mb-3">
+                                <label class="form-label" for="phone_number">Nomor Telepon</label>
+                                <input id="phone_number" type="text"
+                                    class="form-control @error('phone_number') is-invalid @enderror" v-model="phone_number"
+                                    name="phone_number" value="{{ old('phone_number') }}" required>
+
+                                @error('phone_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="form-group mb-3">
                                 <label class="form-label" for="email">Email Address</label>
                                 <input id="email" type="email" @input="checkForEmailAvailability()"
                                     :class="{ 'is-invalid': this.email_unavailable }"

@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="page-content page-home">
-        <section class="store-new-products">
+        <section class="store-new-articles">
             <div class="container">
                 <div class="row">
                     <div class="col-12" data-aos="fade-up">

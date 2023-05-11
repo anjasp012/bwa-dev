@@ -54,6 +54,10 @@
                         class="list-group-item list-group-item-action{{ request()->routeIs('product-gallery.*') ? ' active' : '' }}">
                         Galleries
                     </a>
+                    <a href="{{ route('testimony.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('testimony.*') ? ' active' : '' }}">
+                        Testimony
+                    </a>
                     <a href="{{ route('transaction.index') }}"
                         class="list-group-item list-group-item-action{{ request()->routeIs('transaction.*') ? ' active' : '' }}">
                         Transactions

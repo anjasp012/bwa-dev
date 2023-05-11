@@ -14,7 +14,9 @@
             <div class="dashboard-contennt">
                 <div class="row">
                     <div class="col-12">
-                        <form action="">
+                        <form action="{{ route('dashboard-product-update', $product->id) }}" method="POST">
+                            @method('PUT')
+                            @csrf
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -35,7 +37,7 @@
                                         <div class="col-md-12 mt-3">
                                             <div class="form-group">
                                                 <label class='form-label' for="">Kategori</label>
-                                                <select name="category" class="form-select">
+                                                <select name="category_id" class="form-select">
                                                     <option value="" disabled>Select Category</option>
                                                     @foreach ($categories as $category)
                                                         <option value="{{ $category->id }}"
@@ -52,7 +54,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 mt-3">
-                                            <button type="button" class="btn btn-success w-100 d-block">Update</button>
+                                            <button type="submit" class="btn btn-success w-100 d-block">Update</button>
                                         </div>
                                     </div>
                                 </div>

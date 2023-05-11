@@ -26,7 +26,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <label class="form-label" for="password">Password</label>
                                 <input id="password" type="password"
                                     class="form-control w-75 @error('password') is-invalid @enderror" name="password"
@@ -37,6 +37,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="d-flex justify-content-end w-75">
+                                <a href="" class="text-decoration-none text-black">reset password</a>
                             </div>
                             <button type="submit" class="btn btn-success btn-block w-75 mt-4">Sign in to My
                                 Account</button>

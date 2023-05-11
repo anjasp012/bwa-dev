@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductGalleryController as AdminProductGalleryController;
+use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -54,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/product/create', [DashboardProductController::class, 'create'])->middleware('storeOpen')->name('dashboard-product-create');
     Route::post('/dashboard/product', [DashboardProductController::class, 'store'])->middleware('storeOpen')->name('dashboard-product-store');
     Route::get('/dashboard/product/{id}', [DashboardProductController::class, 'details'])->middleware('storeOpen')->name('dashboard-product-details');
+    Route::put('/dashboard/product/{product:id}', [DashboardProductController::class, 'update'])->middleware('storeOpen')->name('dashboard-product-update');
     Route::delete('/dashboard/product/photos/{id}', [DashboardProductController::class, 'deletephoto'])->middleware('storeOpen')->name('dashboard-product-delete-photo');
 
     Route::get('/dashboard/transactions', [DashboardTransactionController::class, 'index'])->name('dashboard-transaction');
@@ -82,6 +84,7 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
             'product-gallery' => AdminProductGalleryController::class,
             'transaction' => AdminTransactionController::class,
             'news' => AdminArticleController::class,
+            'testimony' => AdminTestimonyController::class,
         ]
     );
 });

@@ -24,110 +24,128 @@
                 </div>
             </div>
         </section>
-        <section class="store-gallery mb-3" id="gallery">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8" data-aos="zoom-in">
-                        <transition name="slide-fade" mode="out-in">
-                            <img :src="photos[activePhoto].url" :key="photos[activePhoto].id" alt="" class="w-100">
-                        </transition>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="row">
-                            <div class="col-3 col-lg-12 mt-2 mt-lg-0" v-for="(photo, index) in photos"
-                                :key="photo.id" data-aos="zoom-in" data-aos-delay="100">
-                                <a href="#" @click="changeActive(index)">
-                                    <img :src="photo.url" class="w-100 thumbnail-image"
-                                        :class="{ active: index == activePhoto }" alt="">
-                                </a>
+        <div class="container">
+            <div class="row justify-content-between gy-5">
+                <div class="col-lg-8">
+                    <section class="store-gallery mb-3" id="gallery">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-12 col-lg-9" data-aos="zoom-in">
+                                    <transition name="slide-fade" mode="out-in">
+                                        <img :src="photos[activePhoto].url" :key="photos[activePhoto].id" alt=""
+                                            class="w-100">
+                                    </transition>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="row">
+                                        <div class="col-3 col-lg-12 mt-2 mt-lg-0" v-for="(photo, index) in photos"
+                                            :key="photo.id" data-aos="zoom-in" data-aos-delay="100">
+                                            <a href="#" @click="changeActive(index)">
+                                                <img :src="photo.url" class="w-100 thumbnail-image"
+                                                    :class="{ active: index == activePhoto }" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                    </section>
+
+                    <div class="store-details-container" data-aos="fade-up">
+                        <section class="store-heading">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-7 col-lg-8">
+                                        <h1>{{ $product->name }}</h1>
+                                        <div class="owner">{{ $product->user->store_name ?? ($product->user->name ?? '') }}
+                                        </div>
+                                        <div class="price">Rp. {{ number_format($product->price, '0', '.', '.') }}</div>
+                                    </div>
+                                    <div class="col-5 col-lg-4" data-aos="zoom-in">
+                                        @auth
+                                            <form action="{{ route('detail-add', $product->id) }}" method="POST"
+                                                enctype="multipart/form-data">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success px-4 text-white btn-block mb-3">
+                                                    Add To Cart
+                                                </button>
+                                            </form>
+                                        @else
+                                            <a href="{{ route('login') }}"
+                                                class="btn btn-success px-4 text-white btn-block mb-3">
+                                                Sign in to Add
+                                            </a>
+                                        @endauth
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="store-description">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-12 col-lg-8">
+                                        {!! $product->description !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="row">
+                        <div class="col-12" data-aos="fade-up">
+                            <h5>Produk Terkait</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 col-lg-12" data-aos="fade-up">
+                            <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
+                                <div class="products-thumbnail">
+                                    <div class="products-image"
+                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                    </div>
+                                </div>
+                                <div class="products-text">
+                                    Lorem, ipsum dolor.
+                                </div>
+                                <div class="products-price">
+                                    Rp. 800000
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-lg-12" data-aos="fade-up">
+                            <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
+                                <div class="products-thumbnail">
+                                    <div class="products-image"
+                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                    </div>
+                                </div>
+                                <div class="products-text">
+                                    Lorem, ipsum dolor.
+                                </div>
+                                <div class="products-price">
+                                    Rp. 800000
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-lg-12" data-aos="fade-up">
+                            <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
+                                <div class="products-thumbnail">
+                                    <div class="products-image"
+                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                    </div>
+                                </div>
+                                <div class="products-text">
+                                    Lorem, ipsum dolor.
+                                </div>
+                                <div class="products-price">
+                                    Rp. 800000
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <div class="store-details-container" data-aos="fade-up">
-            <section class="store-heading">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <h1>{{ $product->name }}</h1>
-                            <div class="owner">{{ $product->user->store_name ?? ($product->user->name ?? '') }}</div>
-                            <div class="price">Rp.{{ number_format($product->price) }}</div>
-                        </div>
-                        <div class="col-lg-2" data-aos="zoom-in">
-                            @auth
-                                <form action="{{ route('detail-add', $product->id) }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success px-4 text-white btn-block mb-3">
-                                        Add To Cart
-                                    </button>
-                                </form>
-                            @else
-                                <a href="{{ route('login') }}" class="btn btn-success px-4 text-white btn-block mb-3">
-                                    Sign in to Add
-                                </a>
-                            @endauth
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="store-description">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
-                            {!! $product->description !!}
-                        </div>
-                    </div>
-                </div>
-            </section>
-            {{-- <section class="store-review">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-lg-8 mt-3 mb-3">
-                            <h5>Customer Review (3)</h5>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-lg-8">
-                            <ul class="list-unstyled">
-                                <li class="media">
-                                    <img src="/images/reviewer-1" class="mr-3 rounded-circle" alt="">
-                                    <div class="media-body">
-                                        <h5 class="mt-2 mb-1">
-                                            Hazza Rizky
-                                        </h5>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur hic
-                                        repellendus necessitatibus iste officia ratione.
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <img src="/images/reviewer-2" class="mr-3 rounded-circle" alt="">
-                                    <div class="media-body">
-                                        <h5 class="mt-2 mb-1">
-                                            Anna Sukkirata
-                                        </h5>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur hic
-                                        repellendus necessitatibus iste officia ratione.
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <img src="/images/reviewer-3" class="mr-3 rounded-circle" alt="">
-                                    <div class="media-body">
-                                        <h5 class="mt-2 mb-1">
-                                            Dakimu Wangi
-                                        </h5>
-                                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur hic
-                                        repellendus necessitatibus iste officia ratione.
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section> --}}
         </div>
     </div>
 @endsection

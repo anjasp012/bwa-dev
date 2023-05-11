@@ -70,6 +70,26 @@ class DashboardProductController extends Controller
         return redirect(route('dashboard-product'));
     }
 
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'price' => ['required', 'numeric'],
+            'description' => ['required'],
+            'category_id' => ['required'],
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'price' => $request->price,
+            'description' => $request->description,
+
+        ]);
+
+        return redirect(route('dashboard-product'));
+    }
+
     public function deletephoto(string $id)
     {
         $photo = ProductGallery::find($id);

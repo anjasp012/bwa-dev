@@ -50,7 +50,7 @@
                                     {{ $product->name }}
                                 </div>
                                 <div class="products-price">
-                                    Rp. {{ $product->price }}
+                                    Rp. {{ number_format($product->price, '0', '.', '.') }}
                                 </div>
                             </a>
                         </div>

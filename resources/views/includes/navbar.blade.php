@@ -3,12 +3,12 @@
         <a href="{{ route('home') }}" class="navbar-brand text-success fw-bold">
             Store-Dev
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <form action="{{ route('search') }}" class="d-inline-flex mx-5" role="search">
+                <form action="{{ route('search') }}" class="d-inline-flex me-5" role="search">
                     <input class="form-control me-2" name="cari" required type="search" placeholder="pencarian..."
                         aria-label="pencarian..." value="{{ $cari ?? '' }}">
                     <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
@@ -27,10 +27,10 @@
                 </li>
                 @guest
                     <li class="nav-item">
-                        <a href="{{ route('register') }}" class="nav-link">Sign Up</a>
+                        <a href="{{ route('register') }}" class="nav-link">Daftar</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="btn btn-success nav-link px-4 text-white">Sign In</a>
+                        <a href="{{ route('login') }}" class="btn btn-success nav-link px-4 text-white">Masuk</a>
                     </li>
                 @endguest
             </ul>
