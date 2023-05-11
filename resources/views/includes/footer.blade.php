@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-12 text-center">
                 <p class="pt-4 pb-2">
-                    2020 Copyright Store. All Right Reserved.
+                    2023 Copyright Reaa-Indonesia. All Right Reserved.
                 </p>
             </div>
         </div>
