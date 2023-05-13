@@ -30,13 +30,13 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label for="name" class="form-label">Title</label>
-                                                <input type="text" name="name" id="name" class="form-control"
+                                                <label for="title" class="form-label">Title</label>
+                                                <input type="text" name="title" id="title" class="form-control"
                                                     value="{{ $item->title }}" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="photo" class="form-label">Foto</label>
-                                                <input type="file" name="photo" id="photo" class="form-control">
+                                                <label for="thumbnail" class="form-label">Foto</label>
+                                                <input type="file" name="thumbnail" id="thumbnail" class="form-control">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="body" class="form-label">Body</label>
