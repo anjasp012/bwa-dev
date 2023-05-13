@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
+    <meta name="google-site-verification" content="ZIaKitojTUkvkpAYAOZoiPqZxacFvyy5ANRBXSIPcUY" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -19,16 +21,18 @@
     @include('includes.style')
     @stack('addon-style')
 </head>
+
 <body>
 
-@include('includes.navbar')
+    @include('includes.navbar')
 
-@yield('content')
+    @yield('content')
 
-@include('includes.footer')
+    @include('includes.footer')
 
-@stack('prepend-script')
-@include('includes.script')
-@stack('addon-script')
+    @stack('prepend-script')
+    @include('includes.script')
+    @stack('addon-script')
 </body>
+
 </html>

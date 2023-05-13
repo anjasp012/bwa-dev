@@ -24,7 +24,7 @@
                                 class="card card-dashboard-product d-block">
                                 <div class="card-body">
                                     @if ($product->galleries->count() > 0)
-                                        <img src="{{ asset($product->galleries->first()->photos) }}" alt=""
+                                        <img src="{{ asset($product->galleries->first()->getPhotos()) }}" alt=""
                                             class="w-100 mb-2">
                                     @endif
                                     <div class="product-title">

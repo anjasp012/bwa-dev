@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="utf-8">
+    <meta name="google-site-verification" content="gdS19GAI9TUR12UKn9c1Vmgoqg_6m3eJPshUF73zgzw" />
+    <meta name="google-site-verification" content="uE_Cc3Cr5alQL_CUJXPskZUxcdGNCgGsPFr-i2DXUug" />
+    <meta name="google-site-verification" content="ZIaKitojTUkvkpAYAOZoiPqZxacFvyy5ANRBXSIPcUY" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
