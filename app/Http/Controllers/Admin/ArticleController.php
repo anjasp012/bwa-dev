@@ -93,7 +93,6 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, string $id)
     {
-        dd('ts');
         $item = Article::findOrFail($id);
         $data = $request->all();
 
