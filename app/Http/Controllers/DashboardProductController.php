@@ -40,6 +40,7 @@ class DashboardProductController extends Controller
 
     public function store(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'name' => ['required', 'min:3'],
             'price' => ['required', 'numeric'],
