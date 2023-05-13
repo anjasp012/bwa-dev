@@ -40,7 +40,7 @@
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-md-1">
-                                                        <img src="{{ asset($transaction->product->galleries->first()->photos ?? '') }}"
+                                                        <img src="{{ asset($transaction->product->galleries->first()->getPhotos() ?? '') }}"
                                                             alt="" class="w-75">
                                                     </div>
                                                     <div class="col-md-4">
@@ -70,7 +70,7 @@
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <img src="{{ asset($transaction->product->galleries->first()->photos ?? '') }}"
+                                                    <img src="{{ asset($transaction->product->galleries->first()->getPhotos() ?? '') }}"
                                                         alt="" class="w-75">
                                                 </div>
                                                 <div class="col-md-4">

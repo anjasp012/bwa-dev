@@ -18,7 +18,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 col-md-4">
-                                        <img src="{{ asset($transaction->product->galleries->first()->photos ?? '') }}"
+                                        <img src="{{ asset($transaction->product->galleries->first()->getPhotos() ?? '') }}"
                                             alt="" class="w-100 mb-3">
                                     </div>
                                     <div class="col-12 col-md-8">
