@@ -93,10 +93,11 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, string $id)
     {
+        dd('ts');
         $item = Article::findOrFail($id);
         $data = $request->all();
 
-        $data['thumbnail'] = $request->file('thumbnail') ? $request->file('thumbnail')->store('assets/article', 'public') : $item->thumbnail;
+        $data['thumbnail'] = $request->has('thumbnail') ? $request->file('thumbnail')->store('assets/article', 'public') : $item->thumbnail;
 
         $item->update($data);
 

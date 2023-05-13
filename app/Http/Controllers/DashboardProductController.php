@@ -45,7 +45,7 @@ class DashboardProductController extends Controller
             'price' => ['required', 'numeric'],
             'description' => ['required'],
             'category_id' => ['required'],
-            'thumbnail' => ['required'],
+            'thumbnail' => ['required', 'image', 'mimes:jpg,jpeg,png'],
         ]);
 
 
