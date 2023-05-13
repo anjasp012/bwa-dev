@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-end">
-                                            <button class="btn btn-success px-5">Save Now</button>
+                                            <button type="submit" class="btn btn-success px-5">Save Now</button>
                                         </div>
                                     </div>
                                 </form>
