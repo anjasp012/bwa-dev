@@ -12,8 +12,10 @@ class DetailController extends Controller
     public function index($slug)
     {
         $product = Product::with('galleries', 'user')->whereSlug($slug)->firstOrFail();
+        $productSimilar = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->get();
         return view('pages.detail', [
-            'product' => $product
+            'product' => $product,
+            'productSimilar' => $productSimilar
         ]);
     }
 

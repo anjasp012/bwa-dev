@@ -98,51 +98,24 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 col-lg-12" data-aos="fade-up">
-                            <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
-                                <div class="products-thumbnail">
-                                    <div class="products-image"
-                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                        @forelse ($productSimilar as $similar)
+                            <div class="col-6 col-lg-12" data-aos="fade-up">
+                                <a href="{{ route('detail', $similar->slug) }}" class="component-products d-block">
+                                    <div class="products-thumbnail">
+                                        <div class="products-image"
+                                            style={{ $similar->galleries->count() > 0 ? 'background-image:url(' . asset($similar->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="products-text">
-                                    Lorem, ipsum dolor.
-                                </div>
-                                <div class="products-price">
-                                    Rp. 800000
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-lg-12" data-aos="fade-up">
-                            <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
-                                <div class="products-thumbnail">
-                                    <div class="products-image"
-                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                    <div class="products-text">
+                                        {{ $similar->name }}
                                     </div>
-                                </div>
-                                <div class="products-text">
-                                    Lorem, ipsum dolor.
-                                </div>
-                                <div class="products-price">
-                                    Rp. 800000
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6 col-lg-12" data-aos="fade-up">
-                            <a href="{{ route('detail', $product->slug) }}" class="component-products d-block">
-                                <div class="products-thumbnail">
-                                    <div class="products-image"
-                                        style={{ $product->galleries->count() > 0 ? 'background-image:url(' . asset($product->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                    <div class="products-price">
+                                        Rp. {{ number_format($similar->price, '0', '.', '.') }}
                                     </div>
-                                </div>
-                                <div class="products-text">
-                                    Lorem, ipsum dolor.
-                                </div>
-                                <div class="products-price">
-                                    Rp. 800000
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @empty
+                        @endforelse
                     </div>
                 </div>
             </div>
