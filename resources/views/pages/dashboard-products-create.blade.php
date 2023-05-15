@@ -27,11 +27,18 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="form-label" for="price">Price</label>
+                                                <label class="form-label" for="price">Harga normal</label>
                                                 <input type="number" name="price" id="price" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-3">
+                                        <div class="col-md-6 mt-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="discon_price">Harga Diskon</label>
+                                                <input type="number" name="discon_price" id="discon_price"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-3">
                                             <div class="form-group">
                                                 <label class="form-label" for="">Kategori</label>
                                                 <select name="category_id" class="form-select">

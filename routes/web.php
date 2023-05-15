@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/dashboard/product', [DashboardProductController::class, 'store'])->middleware('storeOpen')->name('dashboard-product-store');
     Route::get('/dashboard/product/{id}', [DashboardProductController::class, 'details'])->middleware('storeOpen')->name('dashboard-product-details');
     Route::put('/dashboard/product/{product:id}', [DashboardProductController::class, 'update'])->middleware('storeOpen')->name('dashboard-product-update');
+    Route::post('/dashboard/product/{product:id}/add-image', [DashboardProductController::class, 'addImage'])->middleware('storeOpen')->name('dashboard-product-update-add-image');
     Route::delete('/dashboard/product/photos/{id}', [DashboardProductController::class, 'deletephoto'])->middleware('storeOpen')->name('dashboard-product-delete-photo');
 
     Route::get('/dashboard/transactions', [DashboardTransactionController::class, 'index'])->name('dashboard-transaction');

@@ -75,9 +75,23 @@
                                 <div class="products-text">
                                     {{ $product->name }}
                                 </div>
-                                <div class="products-price">
-                                    Rp. {{ number_format($product->price, '0', '.', '.') }}
-                                </div>
+                                @if ($product->discon_price > 0)
+                                    <div class="products-price text-dark fw-lighter text-decoration-line-through"
+                                        style="font-size: 12px">
+                                        Rp. {{ number_format($product->price, '0', '.', '.') }}
+                                    </div>
+                                    <div class="products-price">
+                                        Rp. {{ number_format($product->discon_price, '0', '.', '.') }}
+                                    </div>
+                                @else
+                                    <div class="products-price text-dark fw-lighter text-decoration-line-through"
+                                        style="font-size: 12px">
+                                        Rp. -
+                                    </div>
+                                    <div class="products-price">
+                                        Rp. {{ number_format($product->price, '0', '.', '.') }}
+                                    </div>
+                                @endif
                             </a>
                         </div>
                     @empty

@@ -26,6 +26,7 @@ class ProductRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'category_id' => 'required|exists:categories,id',
             'price' => 'required|integer',
+            'discon_price' => 'nullable|integer',
             'description' => 'required',
         ];
     }

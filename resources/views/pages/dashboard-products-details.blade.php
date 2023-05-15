@@ -29,12 +29,19 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class='form-label' for="price">Price</label>
+                                                <label class='form-label' for="price">Harga</label>
                                                 <input type="number" name="price" id="price" class="form-control"
                                                     value="{{ $product->price }}">
                                             </div>
                                         </div>
-                                        <div class="col-md-12 mt-3">
+                                        <div class="col-md-6 mt-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="discon_price">Harga Diskon</label>
+                                                <input type="number" name="discon_price" id="discon_price"
+                                                    class="form-control" value="{{ $product->discon_price }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mt-3">
                                             <div class="form-group">
                                                 <label class='form-label' for="">Kategori</label>
                                                 <select name="category_id" class="form-select">
@@ -68,7 +75,7 @@
                             <div class="card-body">
                                 <div class="row g-3">
                                     @foreach ($product->galleries as $photos)
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <form method="POST"
                                                 action="{{ route('dashboard-product-delete-photo', $photos->id) }}"
                                                 class="gallery-container">
@@ -81,11 +88,17 @@
                                             </form>
                                         </div>
                                     @endforeach
-                                    <div class="col-12 mt-3">
-                                        <input type="file" name="" id="file" class="d-none " multiple>
-                                        <button class="btn btn-secondary w-100 d-block " onclick="thisFileUpload()">Add
-                                            Photo</button>
-                                    </div>
+                                    <form class="col-md-2"
+                                        action="{{ route('dashboard-product-update-add-image', $product->id) }}"
+                                        method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="thumbnail[]" id="file" hidden
+                                            onchange="form.submit()" multiple>
+                                        <button type="button" class="btn btn-secondary w-100 h-100 d-block fs-1 fw-bold"
+                                            onclick="thisFileUpload()">+
+                                        </button>
+                                        {{-- <input type="submit" id="submit" class="d-none"> --}}
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,7 @@ class CheckoutController extends Controller
                 [
                     'transaction_id' => $transaction->id,
                     'product_id' => $cart->product->id,
-                    'price' => $cart->product->price,
+                    'price' => $cart->product->discon_price > 0 ? $cart->product->discon_price : $cart->product->price,
                     'shipping_status' => 'PENDING',
                     'resi' => '',
                     'code' => $trx,

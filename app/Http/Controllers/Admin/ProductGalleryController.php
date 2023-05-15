@@ -9,9 +9,10 @@ use App\Models\Product;
 use App\Models\ProductGallery;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
-use Storage;
 
 class ProductGalleryController extends Controller
 {
@@ -101,6 +102,7 @@ class ProductGalleryController extends Controller
     public function destroy(string $id)
     {
         $item = ProductGallery::findOrFail($id);
+        File::delete('storage/' . $item->photos);
         $item->delete();
 
         return redirect()->back();

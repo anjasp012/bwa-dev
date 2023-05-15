@@ -59,6 +59,11 @@
                                                     value="{{ $item->price }}" required>
                                             </div>
                                             <div class="form-group mb-3">
+                                                <label for="discon_price" class="form-label">Harga Diskon</label>
+                                                <input type="number" name="discon_price" id="discon_price"
+                                                    class="form-control" value="{{ $item->discon_price }}">
+                                            </div>
+                                            <div class="form-group mb-3">
                                                 <label for="description" class="form-label">Deskripsi Produk</label>
                                                 <textarea name="description" id="editor1">{!! $item->description !!}</textarea>
                                             </div>

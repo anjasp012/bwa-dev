@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
 
@@ -66,7 +67,7 @@ class ProductController extends Controller
     {
         $data = $request->all();
 
-        $data['slug'] = Str::slug($request->name);
+        $data['slug'] = Str::slug($request->name . '-' . now()->timestamp);
         Product::create($data);
 
         return redirect()->route('product.index');
@@ -116,6 +117,11 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $item = Product::findOrFail($id);
+        $galeries = $item->galleries()->get()->pluck('photos');
+        foreach ($galeries as $galery) {
+            File::delete('storage/' . $galery);
+        }
+        $item->galleries()->delete();
         $item->delete();
 
         return redirect()->back();

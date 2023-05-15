@@ -13,7 +13,7 @@
                         <nav>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/index.html">Home</a>
+                                    <a href="/">Home</a>
                                 </li>
                                 <li class="breadcrumb-item active">
                                     Product Details
@@ -59,7 +59,23 @@
                                         <h1>{{ $product->name }}</h1>
                                         <div class="owner">{{ $product->user->store_name ?? ($product->user->name ?? '') }}
                                         </div>
-                                        <div class="price">Rp. {{ number_format($product->price, '0', '.', '.') }}</div>
+                                        @if ($product->discon_price > 0)
+                                            <div class="mb-0 price text-dark fw-lighter text-decoration-line-through"
+                                                style="font-size: 14px">
+                                                Rp. {{ number_format($product->price, '0', '.', '.') }}
+                                            </div>
+                                            <div class="price">Rp.
+                                                {{ number_format($product->discon_price, '0', '.', '.') }}
+                                            </div>
+                                        @else
+                                            <div class="mb-0 price text-dark fw-lighter text-decoration-line-through"
+                                                style="font-size: 14px">
+                                                Rp. -
+                                            </div>
+                                            <div class="price">Rp.
+                                                {{ number_format($product->price, '0', '.', '.') }}
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="col-5 col-lg-4" data-aos="zoom-in">
                                         @auth
@@ -109,9 +125,23 @@
                                     <div class="products-text">
                                         {{ $similar->name }}
                                     </div>
-                                    <div class="products-price">
-                                        Rp. {{ number_format($similar->price, '0', '.', '.') }}
-                                    </div>
+                                    @if ($similar->discon_price > 0)
+                                        <div class="products-price text-dark fw-lighter text-decoration-line-through"
+                                            style="font-size: 12px">
+                                            Rp. {{ number_format($similar->price, '0', '.', '.') }}
+                                        </div>
+                                        <div class="products-price">
+                                            Rp. {{ number_format($similar->discon_price, '0', '.', '.') }}
+                                        </div>
+                                    @else
+                                        <div class="products-price text-dark fw-lighter text-decoration-line-through"
+                                            style="font-size: 12px">
+                                            Rp. -
+                                        </div>
+                                        <div class="products-price">
+                                            Rp. {{ number_format($similar->price, '0', '.', '.') }}
+                                        </div>
+                                    @endif
                                 </a>
                             </div>
                         @empty
