@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="google-site-verification" content="ZIaKitojTUkvkpAYAOZoiPqZxacFvyy5ANRBXSIPcUY" />
+    <meta name="keyword" content="reaa indonesia,reaa,kaos polos,kaos combad,kaos polos hitam,kaos distro">
+    <meta name="description" content="reaa indonesia,reaa,kaos polos,kaos combad,kaos polos hitam,kaos distro">
     @yield('meta')
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
