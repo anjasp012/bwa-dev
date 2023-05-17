@@ -71,6 +71,14 @@
                                                     {{ $transaction->transaction->user->phone_number }}
                                                 </div>
                                             </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="product-title">
+                                                    Size
+                                                </div>
+                                                <div class="product-subtitle">
+                                                    {{ $transaction->size }}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +166,9 @@
                                     </div>
                                     <div class="row mt-4">
                                         <div class="col-12 text-end">
-                                            <button class="btn btn-success btn-lg">Save Now</button>
+                                            @if (auth()->user()->store_status)
+                                                <button class="btn btn-success btn-lg">Save Now</button>
+                                            @endif
                                         </div>
                                     </div>
                                 </form>

@@ -56,9 +56,9 @@ class RegisterController extends Controller
             'phone_number' => ['required', 'string', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'is_store_open' => ['required'],
-            'store_name' => ['nullable', 'string', 'max:255'],
-            'category_id' => ['nullable', 'exists:categories,id'],
+            // 'is_store_open' => ['required'],
+            // 'store_name' => ['nullable', 'string', 'max:255'],
+            // 'category_id' => ['nullable', 'exists:categories,id'],
         ]);
     }
 
@@ -75,9 +75,9 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'phone_number' => $data['phone_number'],
             'password' => Hash::make($data['password']),
-            'store_status' => $data['is_store_open'] == 'true' ? 1 : 0,
-            'store_name' => isset($data['store_name']) ? $data['store_name'] : NULL,
-            'category_id' => isset($data['category_id']) ? $data['category_id'] : NULL,
+            // 'store_status' => $data['is_store_open'] == 'true' ? 1 : 0,
+            // 'store_name' => isset($data['store_name']) ? $data['store_name'] : NULL,
+            // 'category_id' => isset($data['category_id']) ? $data['category_id'] : NULL,
         ]);
     }
 

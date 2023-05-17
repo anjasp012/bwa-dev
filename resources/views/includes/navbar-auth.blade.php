@@ -3,7 +3,7 @@
         <a href="{{ route('home') }}" class="navbar-brand text-success fw-bold">
             Reaa-Indonesia
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse" id="navbarResponsive">

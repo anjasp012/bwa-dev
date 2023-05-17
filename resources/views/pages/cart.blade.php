@@ -31,6 +31,7 @@
                                 <tr>
                                     <td>Image</td>
                                     <td>Name &amp; Seller</td>
+                                    <td>Size</td>
                                     <td>Price</td>
                                     <td>Menu</td>
                                 </tr>
@@ -47,10 +48,16 @@
                                                     alt="" class="cart-image">
                                             @endif
                                         </td>
-                                        <td style="width: 35%;">
+                                        <td style="width: 30%;">
                                             <div class="product-title">{{ $cart->product->name }}</div>
                                             <div class="product-subtitle">
                                                 {{ $cart->product->user->store_name ?? ($cart->product->user->name ?? '') }}
+                                            </div>
+                                        </td>
+                                        <td style="width: 20%;">
+                                            <div class="product-title">{{ $cart->size }}</div>
+                                            <div class="product-subtitle">
+                                                size
                                             </div>
                                         </td>
                                         <td style="width: 35%;">

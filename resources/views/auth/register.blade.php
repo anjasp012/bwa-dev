@@ -67,7 +67,7 @@
                                     class="form-control @error('password-confirm') is-invalid @enderror"
                                     name="password_confirmation" required autocomplete="new-password">
                             </div>
-                            <div class="form-group mb-3">
+                            {{-- <div class="form-group mb-3">
                                 <label class="form-label" for="">Store</label>
                                 <p class="text-muted">Apakah anda juga ingin membuka toko?</p>
                                 <div class="d-flex gap-3">
@@ -111,7 +111,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <button type="submit" class="btn btn-success w-100 d-block mt-4"
                                 :disabled="this.email_unavailable">Sign Up
                                 Now</button>
@@ -171,6 +171,7 @@
                 return {
                     name: "",
                     email: "",
+                    phone_number: "",
                     is_store_open: false,
                     store_name: "",
                     email_unavailable: false

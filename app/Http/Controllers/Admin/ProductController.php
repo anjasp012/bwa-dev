@@ -52,7 +52,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::where('store_status', true)->get();
         $categories = Category::all();
         return view('pages.admin.product.create', [
             'categories' => $categories,
@@ -68,6 +68,12 @@ class ProductController extends Controller
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name . '-' . now()->timestamp);
+        $data['size_s'] = $request->size_s ? true : false;
+        $data['size_m'] = $request->size_m ? true : false;
+        $data['size_l'] = $request->size_l ? true : false;
+        $data['size_xl'] = $request->size_xl ? true : false;
+        $data['size_xxl'] = $request->size_xxl ? true : false;
+
         Product::create($data);
 
         return redirect()->route('product.index');
@@ -87,7 +93,7 @@ class ProductController extends Controller
     public function edit(string $id)
     {
         $item = Product::findOrFail($id);
-        $users = User::all();
+        $users = User::where('store_status', true)->get();
         $categories = Category::all();
         return view('pages.admin.product.edit', [
             'item' => $item,
@@ -104,7 +110,12 @@ class ProductController extends Controller
         $item = Product::findOrFail($id);
         $data = $request->all();
 
-        $data['slug'] = Str::slug($request->name);
+        $data['slug'] = Str::slug($request->name . '-' . now()->timestamp);
+        $data['size_s'] = $request->size_s ? true : false;
+        $data['size_m'] = $request->size_m ? true : false;
+        $data['size_l'] = $request->size_l ? true : false;
+        $data['size_xl'] = $request->size_xl ? true : false;
+        $data['size_xxl'] = $request->size_xxl ? true : false;
 
         $item->update($data);
 

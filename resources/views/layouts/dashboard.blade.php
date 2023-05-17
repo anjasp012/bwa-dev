@@ -46,10 +46,13 @@
                         class="list-group-item list-group-item-action{{ request()->routeIs('dashboard-transaction*') ? ' active' : '' }}">
                         Transactions
                     </a>
-                    <a href="{{ route('dashboard-settings-store') }}"
-                        class="list-group-item list-group-item-action{{ request()->routeIs('dashboard-settings-store') ? ' active' : '' }}">
-                        Store Settings
-                    </a>
+                    @if (auth()->user()->store_status != 1)
+                    @else
+                        <a href="{{ route('dashboard-settings-store') }}"
+                            class="list-group-item list-group-item-action{{ request()->routeIs('dashboard-settings-store') ? ' active' : '' }}">
+                            Store Settings
+                        </a>
+                    @endif
                     <a href="{{ route('dashboard-settings-account') }}"
                         class="list-group-item list-group-item-action{{ request()->routeIs('dashboard-settings-account*') ? ' active' : '' }}">
                         My Account
@@ -64,8 +67,8 @@
                         <button class="btn btn-secondary d-md-none mr-auto mr-2" id="menu-toggle">
                             &laquo; Menu
                         </button>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -109,13 +112,23 @@
                             <ul class="navbar-nav d-block d-lg-none">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        Hi, Anjas
+                                        Hi, {{ Auth::user()->name }}
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link d-inline-block">
                                         Cart
                                     </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('logout') }}" class="nav-link d-inline-block"
+                                        onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();
+                                ">Logout</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
                                 </li>
                             </ul>
                         </div>

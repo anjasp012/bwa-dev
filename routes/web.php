@@ -43,7 +43,7 @@ Route::post('/details/{id}', [DetailController::class, 'add'])->name('detail-add
 
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'notAdmin']], function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart');
     Route::delete('/cart/{id}', [CartController::class, 'delete'])->name('cart-delete');
     Route::post('/checkout', [CheckoutController::class, 'process'])->name('checkout');
@@ -63,8 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard/transaction/{id}', [DashboardTransactionController::class, 'details'])->name('dashboard-transaction-details');
     Route::post('/dashboard/transaction/{id}', [DashboardTransactionController::class, 'update'])->name('dashboard-transaction-update');
 
-    Route::get('/dashboard/settings', [DashboardSettingController::class, 'store'])->name('dashboard-settings-store');
-    Route::put('/dashboard/settings', [DashboardSettingController::class, 'storeupdate'])->name('dashboard-settings-store-update');
+    Route::get('/dashboard/settings', [DashboardSettingController::class, 'store'])->name('dashboard-settings-store')->middleware('storeOpen');
+    Route::put('/dashboard/settings', [DashboardSettingController::class, 'storeupdate'])->name('dashboard-settings-store-update')->middleware('storeOpen');
     Route::get('/dashboard/account', [DashboardSettingController::class, 'account'])->name('dashboard-settings-account');
     Route::put('/dashboard/account', [DashboardSettingController::class, 'accountupdate'])->name('dashboard-settings-account-update');
 });

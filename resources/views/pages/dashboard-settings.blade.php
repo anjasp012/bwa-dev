@@ -38,7 +38,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 mt-3">
+                                        {{-- <div class="col-md-6 mt-3">
                                             <div class="form-group">
                                                 <label class="form-label" for="">Store Status</label>
                                                 <p class="text-muted">Apakah saat ini toko Anda buka?</p>
@@ -63,7 +63,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="row">
                                         <div class="col text-end">

@@ -41,7 +41,10 @@ class DashboardProductController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
+            'meta_keyword' => ['required'],
+            'meta_description' => ['required'],
             'name' => ['required', 'min:3'],
             'price' => ['required', 'numeric'],
             'discon_price' => ['nullable', 'numeric'],
@@ -53,12 +56,20 @@ class DashboardProductController extends Controller
 
         DB::transaction(function () use ($request) {
             $product = auth()->user()->products()->create([
+                'meta_keyword' => $request->meta_keyword,
+                'meta_description' => $request->meta_description,
                 'name' => $request->name,
                 'category_id' => $request->category_id,
                 'price' => $request->price,
                 'discon_price' => $request->discon_price,
                 'slug' => Str::slug($request->name . '-' . now()->timestamp),
                 'description' => $request->description,
+                'link_youtube' => $request->link_youtube,
+                'size_s' => $request->size_s ? true : false,
+                'size_m' => $request->size_m ? true : false,
+                'size_l' => $request->size_l ? true : false,
+                'size_xl' => $request->size_xl ? true : false,
+                'size_xxl' => $request->size_xxl ? true : false,
             ]);
             foreach ($request->file('thumbnail') as $imagefile) {
                 $name_pic = "product-" . Str::random(10) . '.' . $imagefile->extension();
@@ -76,19 +87,30 @@ class DashboardProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
+            'meta_keyword' => ['required'],
+            'meta_description' => ['required'],
             'name' => ['required', 'min:3'],
             'price' => ['required', 'numeric'],
             'discon_price' => ['nullable', 'numeric'],
             'description' => ['required'],
             'category_id' => ['required'],
+            'link_youtube' => ['required'],
         ]);
 
         $product->update([
+            'meta_keyword' => $request->meta_keyword,
+            'meta_description' => $request->meta_description,
             'name' => $request->name,
             'category_id' => $request->category_id,
             'price' => $request->price,
             'discon_price' => $request->discon_price,
             'description' => $request->description,
+            'link_youtube' => $request->link_youtube,
+            'size_s' => $request->size_s ? true : false,
+            'size_m' => $request->size_m ? true : false,
+            'size_l' => $request->size_l ? true : false,
+            'size_xl' => $request->size_xl ? true : false,
+            'size_xxl' => $request->size_xxl ? true : false,
         ]);
 
         return redirect(route('dashboard-product'));

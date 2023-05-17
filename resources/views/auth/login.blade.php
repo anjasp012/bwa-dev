@@ -10,15 +10,15 @@
                     <div class="col-lg-6 text-center">
                         <img src="/images/login-placeholder.png" alt="" class="w-50 mb-4 mb-lg-0">
                     </div>
-                    <div class="col-lg-5">
-                        <h2>Belanja kebutuhan utama, <br>
+                    <div class="col-lg-4">
+                        <h2 class="w-100">Belanja kebutuhan
                             menjadi lebih mudah</h2>
                         <form action="{{ route('login') }}" method="POST" class="mt-3">
                             @csrf
                             <div class="form-group mb-3">
                                 <label class="form-label" for="email">Email Address</label>
                                 <input type="email" name="email" id="email"
-                                    class="form-control w-75 @error('email') is-invalid @enderror"
+                                    class="form-control w-100 @error('email') is-invalid @enderror"
                                     value="{{ old('email') }}" required autocomplete="email" autofocus>
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -29,7 +29,7 @@
                             <div class="form-group mb-2">
                                 <label class="form-label" for="password">Password</label>
                                 <input id="password" type="password"
-                                    class="form-control w-75 @error('password') is-invalid @enderror" name="password"
+                                    class="form-control w-100 @error('password') is-invalid @enderror" name="password"
                                     required autocomplete="current-password">
 
                                 @error('password')
@@ -38,12 +38,12 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="d-flex justify-content-end w-75">
+                            <div class="d-flex justify-content-end w-100">
                                 <a href="" class="text-decoration-none text-black">reset password</a>
                             </div>
-                            <button type="submit" class="btn btn-success btn-block w-75 mt-4">Sign in to My
+                            <button type="submit" class="btn btn-success btn-block w-100 mt-4">Sign in to My
                                 Account</button>
-                            <a href="{{ route('register') }}" class="btn btn-signup btn-block w-75 mt-2">Sign Up</a>
+                            <a href="{{ route('register') }}" class="btn btn-signup btn-block w-100 mt-2">Sign Up</a>
                         </form>
                     </div>
                 </div>

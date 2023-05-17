@@ -32,6 +32,31 @@
                     <li class="nav-item">
                         <a href="{{ route('login') }}" class="btn btn-success nav-link px-4 text-white">Masuk</a>
                     </li>
+                @else
+                    {{-- <li>
+                        <hr class="divider my-0">
+                    </li> --}}
+
+                    {{-- <li class="nav-item">
+                        <a class="nav-link">Hi, {{ Auth::user()->name }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ auth()->user()->roles == 'ADMIN' ? '/admin' : route('dashboard') }}"
+                            class="nav-link">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('cart') }}" class="nav-link">Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('logout') }}" class="nav-link"
+                            onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();
+                                ">Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li> --}}
+
                 @endguest
             </ul>
             @auth

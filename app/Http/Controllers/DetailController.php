@@ -19,13 +19,16 @@ class DetailController extends Controller
         ]);
     }
 
-    public function add($id)
+    public function add(Request $request, $id)
     {
+        $request->validate([
+            'size' => ['required']
+        ]);
         $data = [
             'product_id' => $id,
-            'user_id' => Auth::user()->id
+            'size' => $request->size,
         ];
-        Cart::create($data);
+        Auth::user()->cart()->create($data);
         return redirect()->route('cart');
     }
 }
