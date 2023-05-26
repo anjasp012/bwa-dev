@@ -23,34 +23,15 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('news.update', $item->id) }}" method="POST"
+                                <form action="{{ route('slider.update', $item->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label class="form-label" for="meta_keyword">Meta Keyword</label>
-                                                <input type="text" name="meta_keyword" id="meta_keyword"
-                                                    class="form-control" value="{{ $item->meta_keyword }}">
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label class="form-label" for="meta_description">Meta Description</label>
-                                                <input type="text" name="meta_description" id="meta_description"
-                                                    class="form-control" value="{{ $item->meta_description }}">
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="title" class="form-label">Title</label>
-                                                <input type="text" name="title" id="title" class="form-control"
-                                                    value="{{ $item->title }}" required>
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="thumbnail" class="form-label">Foto</label>
-                                                <input type="file" name="thumbnail" id="thumbnail" class="form-control">
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="body" class="form-label">Body</label>
-                                                <textarea name="body" id="editor1">{!! $item->body !!}</textarea>
+                                                <label for="image" class="form-label">Foto</label>
+                                                <input type="file" name="image" id="image" class="form-control">
                                             </div>
                                         </div>
                                     </div>

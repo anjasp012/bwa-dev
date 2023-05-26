@@ -17,7 +17,36 @@
                 <li class="nav-item">
                     <a href="{{ route('berita.index') }}" class="nav-link">Berita</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Info
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('tentangkami') }}">Tentang Kami</a></li>
+                        <li><a class="dropdown-item" href="{{ route('visi-misi') }}">Visi & Misi</a></li>
+                        <li><a class="dropdown-item" href="{{ route('kontak') }}">Kontak</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-bs-toggle="modal"
+                        data-bs-target="#searchModal">Pencarian</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+<!-- Modal -->
+<div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="{{ route('search') }}" class="d-flex" role="search">
+                    <input class="form-control me-2 w-100" name="cari" required type="search"
+                        placeholder="pencarian..." aria-label="pencarian..." value="{{ $cari ?? '' }}">
+                    <button class="btn btn-sm btn-outline-success" type="submit">Cari</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

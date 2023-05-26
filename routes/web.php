@@ -4,8 +4,14 @@ use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\PopupController as AdminPopupController;
+use App\Http\Controllers\Admin\PromoController as AdminPromoController;
+use App\Http\Controllers\Admin\MisiVisiController as AdminMisiVisiController;
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductGalleryController as AdminProductGalleryController;
+use App\Http\Controllers\Admin\SliderController as AdminSliderController;
 use App\Http\Controllers\Admin\TestimonyController as AdminTestimonyController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\ArticleController;
@@ -19,8 +25,12 @@ use App\Http\Controllers\DashboardSettingController;
 use App\Http\Controllers\DashboardTransactionController;
 use App\Http\Controllers\DetailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KontakController;
+use App\Http\Controllers\MisiVisiController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TentangKamiController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 use function Clue\StreamFilter\fun;
 
@@ -40,6 +50,9 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 Route::get('/categories/{id}', [CategoryController::class, 'details'])->name('categories-details');
 Route::get('/details/{id}', [DetailController::class, 'index'])->name('detail');
 Route::post('/details/{id}', [DetailController::class, 'add'])->name('detail-add');
+Route::get('/tentang-kami', TentangKamiController::class)->name('tentangkami');
+Route::get('/kontak', KontakController::class)->name('kontak');
+Route::get('/visi-misi', MisiVisiController::class)->name('visi-misi');
 
 
 
@@ -81,11 +94,17 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
         [
             'category' => AdminCategoryController::class,
             'user' => AdminUserController::class,
+            'slider' => AdminSliderController::class,
             'product' => AdminProductController::class,
             'product-gallery' => AdminProductGalleryController::class,
             'transaction' => AdminTransactionController::class,
             'news' => AdminArticleController::class,
             'testimony' => AdminTestimonyController::class,
+            'contact' => AdminContactController::class,
+            'popup' => AdminPopupController::class,
+            'visimisi' => AdminMisiVisiController::class,
+            'about' => AdminAboutController::class,
+            'promo' => AdminPromoController::class,
         ]
     );
 });
@@ -94,5 +113,12 @@ Route::get("all", SearchController::class)->name('search');
 
 Route::get('berita', [ArticleController::class, 'index'])->name('berita.index');
 Route::get('berita-details/{Article:slug}', [ArticleController::class, 'show'])->name('berita.show');
+
+Route::get('artisan', function () {
+    Artisan::call('storage:link');
+});
+
+
+
 
 Auth::routes();;

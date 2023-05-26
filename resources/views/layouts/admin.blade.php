@@ -35,6 +35,30 @@
                         class="list-group-item list-group-item-action{{ request()->routeIs('admin-dashboard') ? ' active' : '' }}">
                         Dashboard
                     </a>
+                    <a href="{{ route('slider.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('slider.*') ? ' active' : '' }}">
+                        Slider
+                    </a>
+                    <a href="{{ route('contact.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('contact.*') ? ' active' : '' }}">
+                        Kontak
+                    </a>
+                    <a href="{{ route('popup.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('popup.*') ? ' active' : '' }}">
+                        Popup
+                    </a>
+                    <a href="{{ route('promo.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('promo.*') ? ' active' : '' }}">
+                        Promo
+                    </a>
+                    <a href="{{ route('about.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('about.*') ? ' active' : '' }}">
+                        Tentang
+                    </a>
+                    <a href="{{ route('visimisi.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('visimisi.*') ? ' active' : '' }}">
+                        Visi Misi
+                    </a>
                     <a href="{{ route('user.index') }}"
                         class="list-group-item list-group-item-action{{ request()->routeIs('user.*') ? ' active' : '' }}">
                         Users

@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Article')
+@section('title', 'Tambah / Update Kontak')
 
 @section('content')
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Article</h2>
+                <h2 class="dashboard-title">Kontak</h2>
                 <p class="dashboard-subtitle">
-                    Edit Article
+                    Tambah / Update Kontak
                 </p>
             </div>
             <div class="dashboard-contennt">
@@ -23,40 +23,38 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('news.update', $item->id) }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @method('PUT')
+                                <form action="{{ route('contact.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label class="form-label" for="meta_keyword">Meta Keyword</label>
-                                                <input type="text" name="meta_keyword" id="meta_keyword"
-                                                    class="form-control" value="{{ $item->meta_keyword }}">
+                                                <label for="alamat" class="form-label">Alamat</label>
+                                                <textarea name="alamat" id="alamat" class="form-control">{{ @$contact->alamat }}</textarea>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label class="form-label" for="meta_description">Meta Description</label>
-                                                <input type="text" name="meta_description" id="meta_description"
-                                                    class="form-control" value="{{ $item->meta_description }}">
+                                                <label for="no_telp" class="form-label">no telp</label>
+                                                <input type="text" name="no_telp" id="no_telp" class="form-control"
+                                                    value="{{ @$contact->no_telp }}" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="title" class="form-label">Title</label>
-                                                <input type="text" name="title" id="title" class="form-control"
-                                                    value="{{ $item->title }}" required>
+                                                <label for="email" class="form-label">Email</label>
+                                                <input type="email" name="email" id="email" class="form-control"
+                                                    required value="{{ @$contact->email }}">
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="thumbnail" class="form-label">Foto</label>
-                                                <input type="file" name="thumbnail" id="thumbnail" class="form-control">
+                                                <label for="jam_operasional" class="form-label">jam operasional</label>
+                                                <textarea name="jam_operasional" id="jam_operasional" class="form-control">{{ @$contact->jam_operasional }}</textarea>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="body" class="form-label">Body</label>
-                                                <textarea name="body" id="editor1">{!! $item->body !!}</textarea>
+                                                <label for="google_map" class="form-label">google map</label>
+                                                <input type="google_map" name="google_map" id="google_map"
+                                                    class="form-control" required value="{{ @$contact->google_map }}">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col text-end">
-                                            <button type="submit" class="btn btn-success px-5">Save Now</button>
+                                            <button class="btn btn-success px-5">Save Now</button>
                                         </div>
                                     </div>
                                 </form>
@@ -68,10 +66,3 @@
         </div>
     </div>
 @endsection
-
-@push('addon-script')
-    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('editor1');
-    </script>
-@endpush

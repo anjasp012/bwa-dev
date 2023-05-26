@@ -8,25 +8,86 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12" data-aos="zoom-in">
-                        <div id="storeCarousel" class="carousel slide" data-ride="carousel">
+                        <div id="storeCarousel" class="carousel slide" data-bs-ride="carousel">
                             <ol class="carousel-indicators">
-                                <li class="active" data-target="#storeCarousel" data-slide-to="0"></li>
-                                <li data-target="#storeCarousel" data-slide-to="1"></li>
-                                <li data-target="#storeCarousel" data-slide-to="2"></li>
+                                @foreach ($sliders as $key => $slider)
+                                    <li class="{{ $key == 0 ? 'active' : '' }}" data-bs-target="#storeCarousel"
+                                        data-bs-slide-to="{{ $key }}"></li>
+                                @endforeach
                             </ol>
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="/images/banner.jpg" alt="bwwa-carousel-1" class="d-block w-100">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/images/banner.jpg" alt="bwwa-carousel-2" class="d-block w-100">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="/images/banner.jpg" alt="bwwa-carousel-3" class="d-block w-100">
-                                </div>
+                                @foreach ($sliders as $key => $slider)
+                                    <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
+                                        <img src="{{ asset($slider->getPhoto()) }}"
+                                            class="d-block w-100 rounded-2 carouselHeight">
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+        <section class="store-promo">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12" data-aos="fade-up">
+                        <h5>Promo</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="owl-carousel owl-theme">
+                        <div class="item">
+                            <h4>1</h4>
+                        </div>
+                        <div class="item">
+                            <h4>2</h4>
+                        </div>
+                        <div class="item">
+                            <h4>3</h4>
+                        </div>
+                        <div class="item">
+                            <h4>4</h4>
+                        </div>
+                        <div class="item">
+                            <h4>5</h4>
+                        </div>
+                        <div class="item">
+                            <h4>6</h4>
+                        </div>
+                        <div class="item">
+                            <h4>7</h4>
+                        </div>
+                        <div class="item">
+                            <h4>8</h4>
+                        </div>
+                        <div class="item">
+                            <h4>9</h4>
+                        </div>
+                        <div class="item">
+                            <h4>10</h4>
+                        </div>
+                        <div class="item">
+                            <h4>11</h4>
+                        </div>
+                        <div class="item">
+                            <h4>12</h4>
+                        </div>
+                    </div>
+                    @forelse ($promos as $key => $promo)
+                        <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="{{ ($key + 1) * 100 }}">
+                            <a href="{{ route('categories-details', $promo->slug) }}" class="component-categories d-block">
+                                <div class="categories-image">
+                                    <img src="{{ asset($promo->getPhoto()) }}" alt="" class="w-100">
+                                </div>
+                                <p class="categories-text">{{ $promo->name }}</p>
+                            </a>
+                        </div>
+                    @empty
+                        <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
+                            No Promo Found
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </section>
@@ -200,6 +261,23 @@
                 },
                 1000: {
                     items: 3
+                }
+            }
+        })
+
+        $('.owl-promo').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
                 }
             }
         })

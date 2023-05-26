@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticleRequest extends FormRequest
+class AboutRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,15 +17,16 @@ class ArticleRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             'meta_keyword' => 'required',
             'meta_description' => 'required',
-            'title' => 'required|string|min:3',
-            'body' => 'required'
+            'page_title' => 'required|string|min:3',
+            'page_body' => 'required',
+            'picture' => 'required'
         ];
     }
 }
