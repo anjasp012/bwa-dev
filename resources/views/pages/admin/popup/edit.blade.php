@@ -23,7 +23,7 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('promo.update', $item->id) }}" method="POST"
+                                <form action="{{ route('popup.update', $item->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
@@ -40,17 +40,13 @@
                                                     class="form-control" required value="{{ $item->meta_keyword }}">
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="page_title" class="form-label">Title</label>
-                                                <input type="text" name="page_title" id="page_title" class="form-control"
-                                                    required value="{{ $item->page_title }}">
+                                                <label for="title" class="form-label">Title</label>
+                                                <input type="text" name="title" id="title" class="form-control"
+                                                    required value="{{ $item->title }}">
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="picture" class="form-label">Foto</label>
                                                 <input type="file" name="picture" id="picture" class="form-control">
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="body" class="form-label">Body</label>
-                                                <textarea name="body" id="editor1">{{ $item->body }}</textarea>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="link" class="form-label">link</label>
@@ -58,24 +54,24 @@
                                                     required value="{{ $item->link }}">
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="promo_line" class="form-label">promo_line</label>
-                                                <select class="form-select" name="promo_line" id="promo_line">
+                                                <label for="show" class="form-label">show</label>
+                                                <select class="form-select" name="show" id="show">
                                                     <option value="{{ null }}">pilih</option>
                                                     @for ($i = 1; $i < 5; $i++)
                                                         <option value="{{ $i }}"
-                                                            {{ $item->promo_line == $i ? 'selected' : '' }}>
+                                                            {{ $item->show == $i ? 'selected' : '' }}>
                                                             {{ $i }}</option>
                                                     @endfor
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="active_status" class="form-label">active_status</label>
-                                                <select class="form-select" name="active_status" id="active_status">
+                                                <label for="isActive" class="form-label">isActive</label>
+                                                <select class="form-select" name="isActive" id="isActive">
                                                     <option value="{{ null }}">pilih</option>
-                                                    <option value="1"
-                                                        {{ $item->active_status == '1' ? 'selected' : '' }}>Ya</option>
-                                                    <option value="0"
-                                                        {{ $item->active_status == '0' ? 'selected' : '' }}>Tidak</option>
+                                                    <option value="1" {{ $item->isActive == '1' ? 'selected' : '' }}>
+                                                        Ya</option>
+                                                    <option value="0" {{ $item->isActive == '0' ? 'selected' : '' }}>
+                                                        Tidak</option>
                                                 </select>
                                             </div>
                                         </div>

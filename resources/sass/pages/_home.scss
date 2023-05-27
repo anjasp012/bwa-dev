@@ -12,11 +12,14 @@
             object-fit: cover;
             object-position: top;
             max-height: 420px;
+            min-height: 420px;
             @include media-breakpoint-down(md) {
                 max-height: 354px;
+                min-height: 354px;
             }
             @include media-breakpoint-down(sm) {
                 max-height: 194px;
+                min-height: 194px;
             }
         }
     }

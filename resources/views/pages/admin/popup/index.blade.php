@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Promo')
+@section('title', 'popup')
 
 @section('content')
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Promo</h2>
+                <h2 class="dashboard-title">popup</h2>
                 <p class="dashboard-subtitle">
-                    List Of Promo
+                    List Of popup
                 </p>
             </div>
             <div class="dashboard-contennt">
@@ -16,7 +16,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <a href="{{ route('promo.create') }}" class="btn btn-primary mb-3">+ Tambah Promo
+                                <a href="{{ route('popup.create') }}" class="btn btn-primary mb-3">+ Tambah popup
                                     Baru</a>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-hover scroll-horizontal-vertical w-100"
@@ -56,8 +56,8 @@
                     name: 'id'
                 },
                 {
-                    data: 'page_title',
-                    name: 'page_title'
+                    data: 'title',
+                    name: 'title'
                 },
                 {
                     data: 'photo',

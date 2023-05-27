@@ -36,57 +36,22 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="owl-carousel owl-theme">
-                        <div class="item">
-                            <h4>1</h4>
-                        </div>
-                        <div class="item">
-                            <h4>2</h4>
-                        </div>
-                        <div class="item">
-                            <h4>3</h4>
-                        </div>
-                        <div class="item">
-                            <h4>4</h4>
-                        </div>
-                        <div class="item">
-                            <h4>5</h4>
-                        </div>
-                        <div class="item">
-                            <h4>6</h4>
-                        </div>
-                        <div class="item">
-                            <h4>7</h4>
-                        </div>
-                        <div class="item">
-                            <h4>8</h4>
-                        </div>
-                        <div class="item">
-                            <h4>9</h4>
-                        </div>
-                        <div class="item">
-                            <h4>10</h4>
-                        </div>
-                        <div class="item">
-                            <h4>11</h4>
-                        </div>
-                        <div class="item">
-                            <h4>12</h4>
+                    <div class="col-12">
+                        <div class="swiper promo">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                @forelse ($promos as $promo)
+                                    <a href="{{ $promo->link }}" class="swiper-slide"><img class="w-100 rounded"
+                                            height="148px" style="object-fit: cover;object-position: center"
+                                            src="{{ $promo->getPhoto() }}" alt=""></a>
+                            </div>
                         </div>
                     </div>
-                    @forelse ($promos as $key => $promo)
-                        <div class="col-6 col-md-3 col-lg-2" data-aos="fade-up" data-aos-delay="{{ ($key + 1) * 100 }}">
-                            <a href="{{ route('categories-details', $promo->slug) }}" class="component-categories d-block">
-                                <div class="categories-image">
-                                    <img src="{{ asset($promo->getPhoto()) }}" alt="" class="w-100">
-                                </div>
-                                <p class="categories-text">{{ $promo->name }}</p>
-                            </a>
-                        </div>
-                    @empty
-                        <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
-                            No Promo Found
-                        </div>
+                @empty
+                    <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
+                        No Promo Found
+                    </div>
                     @endforelse
                 </div>
             </div>
@@ -170,32 +135,37 @@
                         <h5>Testimoni</h5>
                     </div>
                 </div>
-                @if ($testimonies->count() > 0)
-                    <div class="owl-carousel owl-theme">
-                        @foreach ($testimonies as $key => $testimoni)
-                            <div class="item pb-2" data-aos="fade-up" data-aos-delay="{{ ($key + 1) * 100 }}">
-                                <div class="card shadow-sm">
-                                    <div class="card-body">
-                                        <h6 class="font-sm text-primary mb-3">
-                                            {{ $testimoni->name }}
-                                        </h6>
-                                        <img src="{{ asset($testimoni->getPhoto()) }}" class="img-fluid mb-3"
-                                            style="width: 100px" alt="">
-                                        <div>
-                                            {!! $testimoni->description !!}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="swiper promo">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                @forelse ($testimonies as $key => $testimoni)
+                                    <div class="swiper-slide pb-2" data-aos="fade-up"
+                                        data-aos-delay="{{ ($key + 1) * 100 }}">
+                                        <div class="card shadow-sm">
+                                            <div class="card-body">
+                                                <h6 class="font-sm text-primary mb-3">
+                                                    {{ $testimoni->name }}
+                                                </h6>
+                                                <img src="{{ asset($testimoni->getPhoto()) }}" class="img-fluid mb-3"
+                                                    style="width: 100px" alt="">
+                                                <div>
+                                                    {!! $testimoni->description !!}
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                             </div>
-                        @endforeach
-                    </div>
-                @else
-                    <div class="row">
-                        <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
-                            No Testimoni
                         </div>
                     </div>
-                @endif
+                @empty
+                    <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="100">
+                        No Testimoni Found
+                    </div>
+                    @endforelse
+                </div>
             </div>
         </section>
         <section class="store-new-articles">
@@ -231,55 +201,46 @@
 @endsection
 
 @push('addon-style')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
-        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
-        integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 @endpush
 
 @push('addon-script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
-        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 @endpush
 
 @push('addon-script')
     <script>
-        $('.owl-carousel').owlCarousel({
-            loop: false,
-            margin: 10,
-            nav: true,
-            dots: false,
-            responsive: {
-                0: {
-                    items: 1
-                },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 3
-                }
-            }
-        })
+        // $('.owl-carousel').owlCarousel({
+        //     loop: false,
+        //     margin: 10,
+        //     nav: true,
+        //     dots: false,
+        //     responsive: {
+        //         0: {
+        //             items: 1
+        //         },
+        //         600: {
+        //             items: 3
+        //         },
+        //         1000: {
+        //             items: 3
+        //         }
+        //     }
+        // })
 
-        $('.owl-promo').owlCarousel({
+        var swiper = new Swiper(".promo", {
+            slidesPerView: 1.3,
+            autoplay: {
+                delay: 5000,
+            },
             loop: true,
-            margin: 10,
-            nav: true,
-            responsive: {
-                0: {
-                    items: 1
+            spaceBetween: 10,
+            breakpoints: {
+                640: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
                 },
-                600: {
-                    items: 3
-                },
-                1000: {
-                    items: 5
-                }
             }
-        })
+        });
     </script>
 @endpush

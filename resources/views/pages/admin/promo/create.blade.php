@@ -23,7 +23,7 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('promo.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
@@ -38,18 +38,40 @@
                                                     class="form-control" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="title" class="form-label">Title</label>
-                                                <input type="text" name="title" id="title" class="form-control"
+                                                <label for="page_title" class="form-label">Title</label>
+                                                <input type="text" name="page_title" id="page_title" class="form-control"
                                                     required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="thumbnail" class="form-label">Foto</label>
-                                                <input type="file" name="thumbnail" id="thumbnail" class="form-control"
+                                                <label for="picture" class="form-label">Foto</label>
+                                                <input type="file" name="picture" id="picture" class="form-control"
                                                     required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="body" class="form-label">Body</label>
                                                 <textarea name="body" id="editor1"></textarea>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="link" class="form-label">link</label>
+                                                <input type="text" name="link" id="link" class="form-control"
+                                                    required>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="promo_line" class="form-label">promo_line</label>
+                                                <select class="form-select" name="promo_line" id="promo_line">
+                                                    <option value="{{ null }}">pilih</option>
+                                                    @for ($i = 1; $i < 5; $i++)
+                                                        <option value="{{ $i }}">{{ $i }}</option>
+                                                    @endfor
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-3">
+                                                <label for="active_status" class="form-label">active_status</label>
+                                                <select class="form-select" name="active_status" id="active_status">
+                                                    <option value="{{ null }}">pilih</option>
+                                                    <option value="1">Ya</option>
+                                                    <option value="0">Tidak</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

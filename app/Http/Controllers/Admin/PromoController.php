@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\PromoRequest;
 use App\Models\Promo;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -36,7 +37,7 @@ class PromoController extends Controller
                     ';
                 })
                 ->editColumn('photo', function ($item) {
-                    return $item->thumbnail ? '<img src="' . asset($item->getPhoto()) . '" style="max-width: 240px;" />' : '';
+                    return $item->picture ? '<img src="' . asset($item->getPhoto()) . '" style="max-width: 240px;" />' : '';
                 })
                 ->rawColumns(['action', 'photo'])
                 ->make();
@@ -50,15 +51,20 @@ class PromoController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.promo.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PromoRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['picture'] = $request->file('picture')->store('assets/promo', 'public');
+
+        Promo::create($data);
+
+        return redirect()->route('promo.index');
     }
 
     /**
@@ -74,15 +80,21 @@ class PromoController extends Controller
      */
     public function edit(Promo $promo)
     {
-        //
+        return view('pages.admin.promo.edit', ['item' => $promo]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Promo $promo)
+    public function update(PromoRequest $request, Promo $promo)
     {
-        //
+        $data = $request->all();
+
+        $data['picture'] = $request->has('picture') ? $request->file('picture')->store('assets/promo', 'public') : $promo->picture;
+
+        $promo->update($data);
+
+        return redirect()->route('promo.index');
     }
 
     /**
@@ -90,6 +102,7 @@ class PromoController extends Controller
      */
     public function destroy(Promo $promo)
     {
-        //
+        $promo->delete();
+        return back();
     }
 }

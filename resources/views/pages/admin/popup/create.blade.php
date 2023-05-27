@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Edit Article')
+@section('title', 'Create New Popup')
 
 @section('content')
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Article</h2>
+                <h2 class="dashboard-title">Popup</h2>
                 <p class="dashboard-subtitle">
-                    Edit Article
+                    Create New Popup
                 </p>
             </div>
             <div class="dashboard-contennt">
@@ -23,66 +23,57 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('promo.update', $item->id) }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @method('PUT')
+                                <form action="{{ route('popup.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
                                                 <label for="meta_description" class="form-label">Meta Description</label>
                                                 <input type="text" name="meta_description" id="meta_description"
-                                                    class="form-control" required value="{{ $item->meta_description }}">
+                                                    class="form-control" required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="meta_keyword" class="form-label">Meta Keyword</label>
                                                 <input type="text" name="meta_keyword" id="meta_keyword"
-                                                    class="form-control" required value="{{ $item->meta_keyword }}">
+                                                    class="form-control" required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="page_title" class="form-label">Title</label>
-                                                <input type="text" name="page_title" id="page_title" class="form-control"
-                                                    required value="{{ $item->page_title }}">
+                                                <label for="title" class="form-label">Title</label>
+                                                <input type="text" name="title" id="title" class="form-control"
+                                                    required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="picture" class="form-label">Foto</label>
-                                                <input type="file" name="picture" id="picture" class="form-control">
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="body" class="form-label">Body</label>
-                                                <textarea name="body" id="editor1">{{ $item->body }}</textarea>
+                                                <input type="file" name="picture" id="picture" class="form-control"
+                                                    required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="link" class="form-label">link</label>
                                                 <input type="text" name="link" id="link" class="form-control"
-                                                    required value="{{ $item->link }}">
+                                                    required>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="promo_line" class="form-label">promo_line</label>
-                                                <select class="form-select" name="promo_line" id="promo_line">
+                                                <label for="show" class="form-label">show</label>
+                                                <select class="form-select" name="show" id="show">
                                                     <option value="{{ null }}">pilih</option>
                                                     @for ($i = 1; $i < 5; $i++)
-                                                        <option value="{{ $i }}"
-                                                            {{ $item->promo_line == $i ? 'selected' : '' }}>
-                                                            {{ $i }}</option>
+                                                        <option value="{{ $i }}">{{ $i }}</option>
                                                     @endfor
                                                 </select>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <label for="active_status" class="form-label">active_status</label>
-                                                <select class="form-select" name="active_status" id="active_status">
+                                                <label for="isActive" class="form-label">isActive</label>
+                                                <select class="form-select" name="isActive" id="isActive">
                                                     <option value="{{ null }}">pilih</option>
-                                                    <option value="1"
-                                                        {{ $item->active_status == '1' ? 'selected' : '' }}>Ya</option>
-                                                    <option value="0"
-                                                        {{ $item->active_status == '0' ? 'selected' : '' }}>Tidak</option>
+                                                    <option value="1">Ya</option>
+                                                    <option value="0">Tidak</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col text-end">
-                                            <button type="submit" class="btn btn-success px-5">Save Now</button>
+                                            <button class="btn btn-success px-5">Save Now</button>
                                         </div>
                                     </div>
                                 </form>
@@ -94,10 +85,3 @@
         </div>
     </div>
 @endsection
-
-@push('addon-script')
-    <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('editor1');
-    </script>
-@endpush
