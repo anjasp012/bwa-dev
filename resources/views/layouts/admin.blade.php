@@ -71,6 +71,10 @@
                         class="list-group-item list-group-item-action{{ request()->routeIs('category.*') ? ' active' : '' }}">
                         Categories
                     </a>
+                    <a href="{{ route('sub-category.index') }}"
+                        class="list-group-item list-group-item-action{{ request()->routeIs('sub-category.*') ? ' active' : '' }}">
+                        Sub-Categories
+                    </a>
                     <a href="{{ route('product.index') }}"
                         class="list-group-item list-group-item-action{{ request()->routeIs('product.*') ? ' active' : '' }}">
                         Products

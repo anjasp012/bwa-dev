@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
-use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Yajra\DataTables\DataTables;
-use Illuminate\Support\Str;
 
-use function Clue\StreamFilter\fun;
-
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    /**
+     * Show the form for creating a new resource.
+     */
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::query()->where('parent_id', null);;
+            $query = Category::query()->with(['category'])->where('parent_id', '!=', null);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -30,8 +31,8 @@ class CategoryController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="' . route('category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
-                                    <form action="' . route("category.destroy", $item->id) .  '" method="POST">
+                                    <a href="' . route('sub-category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
+                                    <form action="' . route("sub-category.destroy", $item->id) .  '" method="POST">
                                         ' . method_field('DELETE') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">Hapus</button>
                                     </form>
@@ -47,15 +48,13 @@ class CategoryController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.category.index');
+        return view('pages.admin.sub-category.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('pages.admin.category.create');
+        $categories = Category::where('parent_id', null)->get();
+        return view('pages.admin.sub-category.create', compact('categories'));
     }
 
     /**
@@ -66,54 +65,42 @@ class CategoryController extends Controller
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name);
+        $data['parent_id'] = $request->parent_id;
         $data['photo'] = $request->file('photo')->store('assets/category', 'public');
         Category::create($data);
 
-        return redirect()->route('category.index');
+        return redirect()->route('sub-category.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Category $category)
     {
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        $item = Category::findOrFail($id);
-        return view('pages.admin.category.edit', [
-            'item' => $item
-        ]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        $item = Category::findOrFail($id);
-        $data = $request->all();
-
-        $data['slug'] = Str::slug($request->name);
-        $data['photo'] = $request->file('photo') ? $request->file('photo')->store('assets/category', 'public') : $item->photo;
-
-        $item->update($data);
-
-        return redirect()->route('category.index');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        $item = Category::findOrFail($id);
-        $item->delete();
-
-        return redirect()->back();
+        //
     }
 }
