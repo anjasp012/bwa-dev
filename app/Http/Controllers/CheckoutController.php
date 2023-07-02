@@ -18,7 +18,7 @@ class CheckoutController extends Controller
     public function process(Request $request)
     {
         $user = Auth::user();
-        $user->update($request->except('total_price'));
+        $user->update($request->except('grand_total'));
 
         $transaction_code = 'REAA-' . mt_rand(00000, 99999);
         $carts = Cart::with(['product', 'user'])->where('user_id', Auth::user()->id)->get();
@@ -28,7 +28,7 @@ class CheckoutController extends Controller
                 'user_id' => Auth::user()->id,
                 'inscurance_price' => 0,
                 'shipping_price' => 0,
-                'total_price' => $request->total_price,
+                'total_price' => $request->grand_total,
                 'transaction_status' => 'PENDING',
                 'code' => $transaction_code,
             ]
@@ -59,7 +59,7 @@ class CheckoutController extends Controller
         $midtrans = [
             'transaction_details' => [
                 "order_id" => $transaction_code,
-                "gross_amount" => (int) $request->total_price
+                "gross_amount" => (int) $request->grand_total
             ],
             'customer_detail' => [
                 "first_name" => Auth::user()->name,

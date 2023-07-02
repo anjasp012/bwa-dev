@@ -3,8 +3,9 @@
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\HeaderCategoryController as AdminHeaderCategoryController;
+use App\Http\Controllers\Admin\SubHeaderCategoryController as AdminSubHeaderCategoryController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\SubCategoryController as AdminSubCategoryController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\PopupController as AdminPopupController;
 use App\Http\Controllers\Admin\PromoController as AdminPromoController;
@@ -93,8 +94,9 @@ Route::prefix('admin')->middleware('auth', 'admin')->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
     Route::resources(
         [
+            'header-category' => AdminHeaderCategoryController::class,
+            'sub-header-category' => AdminSubHeaderCategoryController::class,
             'category' => AdminCategoryController::class,
-            'sub-category' => AdminSubCategoryController::class,
             'user' => AdminUserController::class,
             'slider' => AdminSliderController::class,
             'product' => AdminProductController::class,
@@ -119,7 +121,6 @@ Route::get('berita-details/{Article:slug}', [ArticleController::class, 'show'])-
 Route::get('artisan', function () {
     Artisan::call('storage:link');
 });
-
 
 
 

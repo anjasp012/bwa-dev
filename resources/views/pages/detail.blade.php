@@ -133,12 +133,14 @@
                                     <div class="col-12 col-lg-8">
                                         {!! $product->description !!}
                                     </div>
-                                    <div class="col-lg-5">
-                                        <div class="ratio ratio-16x9 rounded overflow-hidden">
-                                            <iframe src="{{ $product->link_youtube }}" title="YouTube video"
-                                                allowfullscreen></iframe>
+                                    @isset($product->link_youtube)
+                                        <div class="col-lg-5">
+                                            <div class="ratio ratio-16x9 rounded overflow-hidden">
+                                                <iframe src="{{ $product->link_youtube }}" title="YouTube video"
+                                                    allowfullscreen></iframe>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endisset
                                 </div>
                             </div>
                         </section>

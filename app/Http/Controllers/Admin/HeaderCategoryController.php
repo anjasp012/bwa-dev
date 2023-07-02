@@ -2,26 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryRequest;
+use App\Http\Requests\Admin\HeaderCategoryRequest;
+use App\Models\HeaderCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
-class SubCategoryController extends Controller
+use function Clue\StreamFilter\fun;
+
+class HeaderCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::query()->with(['category'])->where('parent_id', '!=', null);
+            $query = HeaderCategory::query();
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -31,8 +31,8 @@ class SubCategoryController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="' . route('sub-category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
-                                    <form action="' . route("sub-category.destroy", $item->id) .  '" method="POST">
+                                    <a href="' . route('header-category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
+                                    <form action="' . route("header-category.destroy", $item->id) .  '" method="POST">
                                         ' . method_field('DELETE') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">Hapus</button>
                                     </form>
@@ -48,59 +48,73 @@ class SubCategoryController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.sub-category.index');
+        return view('pages.admin.header-category.index');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        $categories = Category::where('parent_id', null)->get();
-        return view('pages.admin.sub-category.create', compact('categories'));
+        return view('pages.admin.header-category.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(HeaderCategoryRequest $request)
     {
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name);
-        $data['parent_id'] = $request->parent_id;
         $data['photo'] = $request->file('photo')->store('assets/category', 'public');
-        Category::create($data);
+        HeaderCategory::create($data);
 
-        return redirect()->route('sub-category.index');
+        return redirect()->route('header-category.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(string $id)
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit(string $id)
     {
-        //
+        $item = HeaderCategory::findOrFail($id);
+        return view('pages.admin.header-category.edit', [
+            'item' => $item
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(HeaderCategoryRequest $request, string $id)
     {
-        //
+        $item = HeaderCategory::findOrFail($id);
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->name);
+        $data['photo'] = $request->file('photo') ? $request->file('photo')->store('assets/category', 'public') : $item->photo;
+
+        $item->update($data);
+
+        return redirect()->route('header-category.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(string $id)
     {
-        //
+        $item = HeaderCategory::findOrFail($id);
+        $item->delete();
+
+        return redirect()->back();
     }
 }

@@ -6,22 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Category extends Model
+class HeaderCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = ['id'];
+    protected $fillable = ['name', 'photo', 'slug'];
+
+    protected $hidden = [''];
 
     public function getPhoto()
     {
         return '/storage/' . $this->photo;
     }
-    public function subHeaderCategory()
+    public function subHeaderCategories()
     {
-        return $this->belongsTo(SubHeaderCategory::class);
-    }
-    public function products()
-    {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(SubHeaderCategory::class);
     }
 }

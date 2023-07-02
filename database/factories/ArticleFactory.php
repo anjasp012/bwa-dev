@@ -21,6 +21,8 @@ class ArticleFactory extends Factory
             'title' => $title = $this->faker->sentence(),
             'slug' => Str::slug($title),
             'body' => $this->faker->paragraph(),
+            'meta_keyword' => $this->faker->word(),
+            'meta_description' => $this->faker->word(),
         ];
     }
 }

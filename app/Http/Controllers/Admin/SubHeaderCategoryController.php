@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\SubHeaderCategory;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
-use App\Http\Requests\Admin\CategoryRequest;
+use App\Http\Requests\Admin\SubHeaderCategoryRequest;
 
-class CategoryController extends Controller
+class SubHeaderCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $query = Category::query()->with(['subHeaderCategory.headerCategory']);
+            $query = SubHeaderCategory::query()->with(['headerCategory']);
             return DataTables::of($query)
                 ->addColumn('action', function ($item) {
                     return '
@@ -27,8 +27,8 @@ class CategoryController extends Controller
                                     Aksi
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="' . route('category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
-                                    <form action="' . route("category.destroy", $item->id) .  '" method="POST">
+                                    <a href="' . route('sub-header-category.edit', $item->id) .  '" class="dropdown-item">Sunting</a>
+                                    <form action="' . route("sub-header-category.destroy", $item->id) .  '" method="POST">
                                         ' . method_field('DELETE') . csrf_field() . '
                                         <button type="submit" class="dropdown-item text-danger">Hapus</button>
                                     </form>
@@ -44,7 +44,7 @@ class CategoryController extends Controller
                 ->make();
         }
 
-        return view('pages.admin.category.index');
+        return view('pages.admin.sub-header-category.index');
     }
 
     /**
@@ -52,21 +52,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.category.create');
+        return view('pages.admin.sub-header-category.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryRequest $request)
+    public function store(SubHeaderCategoryRequest $request)
     {
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name);
         $data['photo'] = $request->file('photo')->store('assets/category', 'public');
-        Category::create($data);
+        SubHeaderCategory::create($data);
 
-        return redirect()->route('category.index');
+        return redirect()->route('sub-header-category.index');
     }
 
     /**
@@ -82,8 +82,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Category::with(['subHeaderCategory.headerCategory'])->findOrFail($id);
-        return view('pages.admin.category.edit', [
+        $item = SubHeaderCategory::findOrFail($id);
+        return view('pages.admin.sub-header-category.edit', [
             'item' => $item
         ]);
     }
@@ -91,9 +91,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(SubHeaderCategoryRequest $request, string $id)
     {
-        $item = Category::findOrFail($id);
+        $item = SubHeaderCategory::findOrFail($id);
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name);
@@ -101,7 +101,7 @@ class CategoryController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('category.index');
+        return redirect()->route('sub-header-category.index');
     }
 
     /**
@@ -109,6 +109,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = SubHeaderCategory::findOrFail($id);
+        $item->delete();
+
+        return redirect()->back();
     }
 }

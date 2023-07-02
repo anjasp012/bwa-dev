@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CheckOngkirController;
 use App\Http\Controllers\CheckoutController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +27,11 @@ Route::get('register/check', [RegisterController::class, 'check'])->name('api-re
 
 Route::get('provincies', [LocationController::class, 'provincies'])->name('api-provincies');
 Route::get('regencies/{province_id}', [LocationController::class, 'regencies'])->name('api-regencies');
-Route::post('/test', function () {
-    dd('sas');
-});
+Route::get('header-categories', [CategoryController::class, 'headerCategories'])->name('api-header-categories');
+Route::get('sub-header-categories/{header_category_id}', [CategoryController::class, 'subHeaderCategories'])->name('api-sub-header-categories');
+Route::get('categories/{sub_header_category_id}', [CategoryController::class, 'categories'])->name('api-categories');
 Route::post('/checkout/callback', [CheckoutController::class, 'callback'])->name('midtrans-callback');
+
+// Route::get('/ongkir', [CheckOngkirController::class, 'index']);
+// Route::get('/cities/{province_id}', [CheckOngkirController::class, 'getCities']);
+Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir']);

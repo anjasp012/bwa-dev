@@ -20,7 +20,7 @@ return new class extends Migration
 
             $table->longText('address_one');
             $table->longText('address_two');
-            $table->integer('provincy_id');
+            $table->integer('province_id');
             $table->integer('regency_id');
             $table->integer('zip_code');
             $table->string('country');

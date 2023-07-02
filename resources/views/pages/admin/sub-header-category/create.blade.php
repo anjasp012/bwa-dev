@@ -1,14 +1,14 @@
 @extends('layouts.admin')
 
-@section('title', 'Create New Category')
+@section('title', 'Create New Sub Header Category')
 
 @section('content')
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Kategori</h2>
+                <h2 class="dashboard-title">Sub-Header Kategori</h2>
                 <p class="dashboard-subtitle">
-                    Create New Kategori
+                    Create New Sub-Header Kategori
                 </p>
             </div>
             <div class="dashboard-contennt">
@@ -25,13 +25,13 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form id="category" action="{{ route('category.store') }}" id="category" method="POST"
+                                <form id="category" action="{{ route('sub-header-category.store') }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label for="name" class="form-label">Nama</label>
+                                                <label for="name" class="form-label">Nama Sub-Header Kategori</label>
                                                 <input type="text" name="name" id="name" class="form-control"
                                                     required>
                                             </div>
@@ -44,19 +44,6 @@
                                                     <option v-for="headerCategory in headerCategories"
                                                         :value="headerCategory.id">
                                                         @{{ headerCategory.name }}
-                                                    </option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="sub_header_category_id" class="form-label">Sub-Header
-                                                    Kategori</label>
-                                                <select name="sub_header_category_id" id="sub_header_category_id"
-                                                    class="form-select" v-if="subHeaderCategories"
-                                                    v-model="sub_header_category_id" required>
-                                                    <option value="null" selected disabled>Pilih ..</option>
-                                                    <option v-for="subHeaderCategory in subHeaderCategories"
-                                                        :value="subHeaderCategory.id">
-                                                        @{{ subHeaderCategory.name }}
                                                     </option>
                                                 </select>
                                             </div>
@@ -91,14 +78,10 @@
             mounted() {
                 AOS.init();
                 this.getHeaderCategoryData();
-                // this.getSubHeaderCategoryData();
-                // this.getOngkir();
             },
             data: {
                 headerCategories: null,
-                subHeaderCategories: null,
                 header_category_id: null,
-                sub_header_category_id: null,
             },
             methods: {
                 getHeaderCategoryData() {
@@ -108,20 +91,7 @@
                             self.headerCategories = response.data;
                         })
                 },
-                getSubHeaderCategoryData() {
-                    var self = this;
-                    axios.get('{{ url('api/sub-header-categories') }}/' + self.header_category_id)
-                        .then(function(response) {
-                            self.subHeaderCategories = response.data;
-                        })
-                },
             },
-            watch: {
-                header_category_id: function(val, oldVal) {
-                    this.sub_header_category_id = null,
-                        this.getSubHeaderCategoryData();
-                },
-            }
         });
     </script>
 @endpush

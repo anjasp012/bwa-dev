@@ -97,10 +97,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2">
+                        <a href="{{ route('cart') }}" class="nav-link d-inline-block mt-2 position-relative">
                             @if (Auth::user()->cart->count() > 0)
                                 <img src="/images/icon-cart-filled.svg" alt="">
-                                <div class="cart-badge">{{ Auth::user()->cart->count() }}</div>
+                                <div class="cart-badge position-absolute">{{ Auth::user()->cart->count() }}</div>
                             @else
                                 <img src="/images/icon-cart-empty.svg" alt="">
                             @endif

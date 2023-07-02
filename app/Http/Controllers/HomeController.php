@@ -17,7 +17,7 @@ class HomeController extends Controller
         $sliders = Slider::get();
         $testimonies = Testimony::latest()->get();
         $articles = Article::latest()->take(4)->get();
-        $categories = Category::where('parent_id', null)->take(6)->get();
+        $categories = Category::take(6)->get();
         $promos = Promo::take(6)->get();
         $products = Product::with('galleries')->take(8)->get();
         return view('pages.home', [

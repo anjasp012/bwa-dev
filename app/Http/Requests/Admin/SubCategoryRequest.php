@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class SubCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,16 +21,16 @@ class CategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        if (request()->routeIs('sub-header-category.update')) {
+        if (request()->routeIs('sub-category.update')) {
             return [
                 'name' => 'required|string|min:3',
-                'sub_header_category_id' => ['required', 'exists:sub_header_categories,id'],
+                'category_id' => ['required', 'exists:categories,id'],
                 'photo' => 'image'
             ];
         }
         return [
             'name' => 'required|string|min:3',
-            'sub_header_category_id' => ['required', 'exists:sub_header_categories,id'],
+            'category_id' => ['required', 'exists:categories,id'],
             'photo' => 'required|image'
         ];
     }

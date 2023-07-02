@@ -15,11 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            IndoRegionProvinceSeeder::class,
-            IndoRegionRegencySeeder::class,
-            UserSeeder::class,
+            LocationsSeeder::class,
+            // UserSeeder::class,
         ]);
-        Article::factory(10)->create();
+        // Article::factory(10)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

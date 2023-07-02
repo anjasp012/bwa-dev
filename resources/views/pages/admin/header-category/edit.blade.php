@@ -1,50 +1,44 @@
 @extends('layouts.admin')
 
-@section('title', 'Create New Sub Category')
+@section('title', 'Edit Category')
 
 @section('content')
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Sub Category</h2>
+                <h2 class="dashboard-title">Category</h2>
                 <p class="dashboard-subtitle">
-                    Create New Sub Category
+                    Edit Category
                 </p>
             </div>
             <div class="dashboard-contennt">
                 <div class="row">
                     <div class="col-md-12">
-                        @if ($errors->any)
-                            @foreach ($errors->all as $error)
-                                <div class="alert alert-danger">
-                                    <li>{{ $error }}</li>
-                                </div>
-                            @endforeach
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('header-category.update', $item->id) }}" method="POST"
+                                    enctype="multipart/form-data">
+                                    @method('PUT')
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group mb-3">
-                                                <label for="name" class="form-label">Nama Sub Kategori</label>
+                                                <label for="name" class="form-label">Nama Kategori</label>
                                                 <input type="text" name="name" id="name" class="form-control"
-                                                    required>
-                                            </div>
-                                            <div class="form-group mb-3">
-                                                <label for="parent_id" class="form-label">Kategori</label>
-                                                <select name="parent_id" id="parent_id" class="form-select">
-                                                    <option value="{{ null }}" selected disabled>Pilih ..</option>
-                                                    @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                    @endforeach
-                                                </select>
+                                                    value="{{ $item->name }}" required>
                                             </div>
                                             <div class="form-group mb-3">
                                                 <label for="photo" class="form-label">Foto</label>
-                                                <input type="file" name="photo" id="photo" class="form-control"
-                                                    required>
+                                                <input type="file" name="photo" id="photo" class="form-control">
                                             </div>
                                         </div>
                                     </div>
