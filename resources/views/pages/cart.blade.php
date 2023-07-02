@@ -211,24 +211,24 @@
                         </div>
                     </div>
                     <div class="row" data-aos="fade-up" data-aos-delay="200">
-                        <div class="col-4 col-md-3">
+                        <div class="col-3 col-md-2">
                             <div class="product-title">Rp.0</div>
                             <div class="product-subtitle">Tax</div>
                         </div>
-                        <div class="col-4 col-md-3">
+                        <div class="col-3 col-md-2">
                             <div class="product-title" id="sub_total">Rp.{{ number_format($totalPrice) }}</div>
                             <div class="product-subtitle">Sub Total</div>
                         </div>
-                        <div class="col-4 col-md-2">
+                        <div class="col-3 col-md-2">
                             <div class="product-title" id="ship_val">-</div>
                             <div class="product-subtitle">Ongkir</div>
                         </div>
-                        <div class="col-4 col-md-2">
+                        <div class="col-3 col-md-2">
                             <div class="product-title text-success" id="grand_total">-</div>
                             <div class="product-subtitle">Grand Total</div>
                         </div>
-                        <div class="col-8 col-md-3">
-                            <button type="submit" class="btn btn-success mt-4 px-4 btn-block">
+                        <div class="col-12 col-md-4">
+                            <button type="submit" class="btn btn-success mt-4 px-4 w-100">
                                 CEKOUT SEKARANG
                             </button>
                         </div>
