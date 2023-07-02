@@ -285,10 +285,10 @@
         }
 
         function ship(e) {
-            console.log(e.value);
-            $('#ship_val').html(e.value);
+            // console.log(e.value);
+            $('#ship_val').html('Rp.' + e.value);
 
-            $('#grand_total').html(+e.value + {{ $totalPrice }});
+            $('#grand_total').html('Rp.' + (+e.value + {{ $totalPrice }}));
             $('#grand_total_input').val(+e.value + {{ $totalPrice }});
 
 
