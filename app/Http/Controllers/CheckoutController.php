@@ -22,6 +22,9 @@ class CheckoutController extends Controller
 
         $transaction_code = 'REAA-' . mt_rand(00000, 99999);
         $carts = Cart::with(['product', 'user'])->where('user_id', Auth::user()->id)->get();
+        if ($carts->count() >= 0) {
+            return back()->with('kosong', 'Keranjang Kosong, Silahkan Pilih Product terlebih dahulu !');
+        }
 
         $transaction = Transaction::create(
             [

@@ -23,6 +23,22 @@
             </div>
         </section>
         <section class="store-cart">
+            {{-- @if (Session::has('kosong'))
+                @push('addon-script')
+                    <script src="/vendor/vue/vue.js"></script>
+                    <script src="https://unpkg.com/vue-toasted"></script>
+                    <script>
+                        Vue.use(Toasted);
+                        Vue.toasted.error(
+                            "Keranjang Kosong, Silahkan Pilih Product terlebih dahulu !", {
+                                position: "top-center",
+                                className: "rounded",
+                                duration: 1000
+                            }
+                        );
+                    </script>
+                @endpush
+            @endif --}}
             <div class="container">
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-12 table-responsive">
@@ -64,160 +80,162 @@
                                             @if ($cart->product->discon_price > 0)
                                                 <div class="product-title">
                                                     Rp.{{ number_format($cart->product->discon_price) }}
-                                                @else
-                                                    <div class="product-title">
-                                                        Rp.{{ number_format($cart->product->price) }}
+                                                </div>
+                                            @else
+                                                <div class="product-title">
+                                                    Rp.{{ number_format($cart->product->price) }}
+                                                </div>
                                             @endif
-                    </div>
-                    <div class="product-subtitle">IDR</div>
-                    </td>
-                    <td style="width: 20%;">
-                        <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-remove-cart">
-                                Remove
-                            </button>
-                        </form>
-                    </td>
-                    </tr>
-                    @php
-                        if ($cart->product->discon_price > 0) {
-                            $totalPrice += $cart->product->discon_price;
-                        } else {
-                            $totalPrice += $cart->product->price;
-                        }
-                        
-                    @endphp
-                @empty
-                    <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="200">
-                        Cart is Empty
-                    </div>
-                    @endforelse
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row" data-aos="fade-up" data-aos-delay="150">
-                <div class="col-12">
-                    <hr>
-                </div>
-                <div class="col-12">
-                    <h2 class="mb-4">Shipping Details</h2>
-                </div>
-            </div>
-            <form action="{{ route('checkout') }}" id="locations" method="POST" enctype="multipart/form-data">
-                @csrf
-                <input type="hidden" id="grand_total_input" name="grand_total">
-                <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label for="address_one">Alamat 1</label>
-                            <input type="text" required class="form-control" id="address_one" name="address_one"
-                                value="{{ auth()->user()->address_one ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label for="address_two">Alamat 2</label>
-                            <input type="text" required class="form-control" id="address_two" name="address_two"
-                                value="{{ auth()->user()->address_two ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            <label for="province_id">Provinsi</label>
-                            <select name="province_id" id="province_id" class="form-select" v-if="provincies"
-                                v-model="province_id" required>
-                                <option v-for="province in provincies" :value="province.id">@{{ province.name }}
-                                </option>
-                            </select>
-                            <select v-else class="form-select"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            <label for="regency_id">Kota</label>
-                            <select name="regency_id" required id="regency_id" class="form-select" v-if="provincies"
-                                v-model="regency_id">
-                                <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}
-                                </option>
-                            </select>
-                            <select v-else class="form-select"></select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group mb-3">
-                            <label for="zip_code">Kode Pos</label>
-                            <input type="text" required class="form-control" id="zip_code" name="zip_code"
-                                value="{{ auth()->user()->zip_code ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label for="country">Negara</label>
-                            <input type="text" required class="form-control" id="country" name="country"
-                                value="{{ auth()->user()->country ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label for="phone_number">No Hp</label>
-                            <input type="text" required class="form-control" id="phone_number" name="phone_number"
-                                value="{{ auth()->user()->phone_number ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label for="country">Pilih Kurir</label>
-                            <select onchange="kurir(this)" class="form-select" name="courir" id="courir">
-                                <option value="{{ null }}" selected disabled>Pilih Kurir..</option>
-                                <option value="jne">JNE</option>
-                                <option value="tiki">TIKI</option>
-                                <option value="pos">POS</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group mb-3">
-                            <label for="pilihan">Layanan</label>
-                            <select onchange="ship(this)" class="form-select" name="courier_cost" id="layanan">
-                                <option value="{{ null }}" selected disabled>Pilih Layanan..</option>
-                            </select>
-                        </div>
+                                            <div class="product-subtitle">IDR</div>
+                                        </td>
+                                        <td style="width: 20%;">
+                                            <form action="{{ route('cart-delete', $cart->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-remove-cart">
+                                                    Remove
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @php
+                                        if ($cart->product->discon_price > 0) {
+                                            $totalPrice += $cart->product->discon_price;
+                                        } else {
+                                            $totalPrice += $cart->product->price;
+                                        }
+                                    @endphp
+                                @empty
+                                    <div class="col-12 text-center py-5" data-aos="fade-up" data-aos-delay="200">
+                                        Cart is Empty
+                                    </div>
+                                @endforelse
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <div class="row" data-aos="fade-up" data-aos-delay="150">
                     <div class="col-12">
-                        <h2 class="mb-1">Payment Information</h2>
+                        <hr>
+                    </div>
+                    <div class="col-12">
+                        <h2 class="mb-4">Shipping Details</h2>
                     </div>
                 </div>
-                <div class="row" data-aos="fade-up" data-aos-delay="200">
-                    <div class="col-4 col-md-3">
-                        <div class="product-title">Rp.0</div>
-                        <div class="product-subtitle">Tax</div>
+                <form action="{{ route('checkout') }}" id="locations" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" id="grand_total_input" name="grand_total">
+                    <div class="row mb-2" data-aos="fade-up" data-aos-delay="200">
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="address_one">Alamat 1</label>
+                                <input type="text" required class="form-control" id="address_one" name="address_one"
+                                    value="{{ auth()->user()->address_one ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="address_two">Alamat 2</label>
+                                <input type="text" required class="form-control" id="address_two" name="address_two"
+                                    value="{{ auth()->user()->address_two ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="province_id">Provinsi</label>
+                                <select name="province_id" id="province_id" class="form-select" v-if="provincies"
+                                    v-model="province_id" required>
+                                    <option v-for="province in provincies" :value="province.id">@{{ province.name }}
+                                    </option>
+                                </select>
+                                <select v-else class="form-select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="regency_id">Kota</label>
+                                <select name="regency_id" id="regency_id" class="form-select" v-if="provincies"
+                                    v-model="regency_id" required>
+                                    <option v-for="regency in regencies" :value="regency.id">@{{ regency.name }}
+                                    </option>
+                                </select>
+                                <select v-else class="form-select"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-3">
+                                <label for="zip_code">Kode Pos</label>
+                                <input type="text" required class="form-control" id="zip_code" name="zip_code"
+                                    value="{{ auth()->user()->zip_code ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="country">Negara</label>
+                                <input type="text" required class="form-control" id="country" name="country"
+                                    value="{{ auth()->user()->country ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="phone_number">No Hp</label>
+                                <input type="text" required class="form-control" id="phone_number"
+                                    name="phone_number" value="{{ auth()->user()->phone_number ?? '' }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="country">Pilih Kurir</label>
+                                <select onchange="kurir(this)" class="form-select" name="courir" id="courir"
+                                    required>
+                                    <option value="{{ null }}" selected disabled>Pilih Kurir..</option>
+                                    <option value="jne">JNE</option>
+                                    <option value="tiki">TIKI</option>
+                                    <option value="pos">POS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-3">
+                                <label for="pilihan">Layanan</label>
+                                <select onchange="ship(this)" class="form-select" name="courier_cost" id="layanan"
+                                    required>
+                                    <option value="{{ null }}" selected disabled>Pilih Layanan..</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-4 col-md-3">
-                        <div class="product-title" id="sub_total">Rp.{{ number_format($totalPrice) }}</div>
-                        <div class="product-subtitle">Sub Total</div>
+                    <div class="row" data-aos="fade-up" data-aos-delay="150">
+                        <div class="col-12">
+                            <h2 class="mb-1">Payment Information</h2>
+                        </div>
                     </div>
-                    <div class="col-4 col-md-2">
-                        <div class="product-title" id="ship_val">-</div>
-                        <div class="product-subtitle">Ongkir</div>
+                    <div class="row" data-aos="fade-up" data-aos-delay="200">
+                        <div class="col-4 col-md-3">
+                            <div class="product-title">Rp.0</div>
+                            <div class="product-subtitle">Tax</div>
+                        </div>
+                        <div class="col-4 col-md-3">
+                            <div class="product-title" id="sub_total">Rp.{{ number_format($totalPrice) }}</div>
+                            <div class="product-subtitle">Sub Total</div>
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <div class="product-title" id="ship_val">-</div>
+                            <div class="product-subtitle">Ongkir</div>
+                        </div>
+                        <div class="col-4 col-md-2">
+                            <div class="product-title text-success" id="grand_total">-</div>
+                            <div class="product-subtitle">Grand Total</div>
+                        </div>
+                        <div class="col-8 col-md-3">
+                            <button type="submit" class="btn btn-success mt-4 px-4 btn-block">
+                                CEKOUT SEKARANG
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-4 col-md-2">
-                        <div class="product-title text-success" id="grand_total">-</div>
-                        <div class="product-subtitle">Grand Total</div>
-                    </div>
-                    <div class="col-8 col-md-3">
-                        <button type="submit" class="btn btn-success mt-4 px-4 btn-block">
-                            CEKOUT SEKARANG
-                        </button>
-                    </div>
-                </div>
-            </form>
-    </div>
-    </section>
+                </form>
+            </div>
+        </section>
     </div>
 @endsection
 
