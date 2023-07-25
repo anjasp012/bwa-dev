@@ -50,7 +50,8 @@ class DashboardProductController extends Controller
             'discon_price' => ['nullable', 'numeric'],
             'description' => ['required'],
             'category_id' => ['required'],
-            'thumbnail' => ['required']
+            'thumbnail' => ['required'],
+            'kondisi' => ['required'],
         ]);
 
 
@@ -65,12 +66,15 @@ class DashboardProductController extends Controller
                 'slug' => Str::slug($request->name . '-' . now()->timestamp),
                 'description' => $request->description,
                 'link_youtube' => $request->link_youtube,
+                'kondisi' => $request->kondisi,
                 'size_s' => $request->size_s ? true : false,
                 'size_m' => $request->size_m ? true : false,
                 'size_l' => $request->size_l ? true : false,
                 'size_xl' => $request->size_xl ? true : false,
                 'size_xxl' => $request->size_xxl ? true : false,
             ]);
+            $product->spesifications()->createMany($request->spesifications);
+            $product->variations()->createMany($request->variations);
             foreach ($request->file('thumbnail') as $imagefile) {
                 $name_pic = "product-" . Str::random(10) . '.' . $imagefile->extension();
                 $pic = new ProductGallery();

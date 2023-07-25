@@ -19,6 +19,16 @@ class Product extends Model
         return $this->hasMany(ProductGallery::class, 'product_id', 'id');
     }
 
+    public function spesifications()
+    {
+        return $this->hasMany(ProductSpesification::class, 'product_id', 'id');
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class, 'product_id', 'id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');

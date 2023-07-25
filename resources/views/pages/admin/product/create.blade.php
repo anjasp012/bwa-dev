@@ -27,28 +27,28 @@
                                     id="product">
                                     @csrf
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="meta_description" class="form-label">Meta Description</label>
                                                 <input type="text" name="meta_description" id="meta_description"
                                                     class="form-control" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="meta_keyword" class="form-label">Meta Keyword</label>
                                                 <input type="text" name="meta_keyword" id="meta_keyword"
                                                     class="form-control" required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="name" class="form-label">Nama Produk</label>
                                                 <input type="text" name="name" id="name" class="form-control"
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="user_id" class="form-label">Pemilik Produk</label>
                                                 <select name="user_id" id="user_id" class="form-select" required>
@@ -100,14 +100,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="price" class="form-label">Harga Produk</label>
                                                 <input type="number" name="price" id="price" class="form-control"
                                                     required>
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label for="discon_price" class="form-label">Harga Diskon</label>
                                                 <input type="number" name="discon_price" id="discon_price"
@@ -121,7 +121,7 @@
                                                     class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <div class="form-group mb-3">
                                                 <label class="form-label d-block mb-0" for="Ukuran">Ukuran</label>
                                                 <small class="text-muted d-block mb-2">Centang ukuran yang tersedia</small>
@@ -160,6 +160,81 @@
                                                         XXL
                                                     </label>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mb-3">
+                                                <label class="form-label d-block mb-0" for="Ukuran">Kondisi</label>
+                                                <small class="text-muted d-block mb-2">Pilih Kondisi Barang</small>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kondisi"
+                                                        id="kondisiBaru" value="baru">
+                                                    <label class="form-check-label" for="kondisiBaru">
+                                                        Baru
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kondisi"
+                                                        id="kondisiBekas" value="bekas">
+                                                    <label class="form-check-label" for="kondisiBekas">
+                                                        Bekas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <div class="form-group" id="spesifikasi">
+                                                    <label for="discon_price" class="form-label">Spesifikasi
+                                                        Produk</label>
+                                                    <div class="row g-3 mb-2">
+                                                        <div class="col-6 spesifikasiDiv">
+                                                            <input type="text" name="spesifications[0][name]"
+                                                                class="form-control" placeholder="spesifikasi">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="text" name="spesifications[0][description]"
+                                                                class="form-control" placeholder="deskripsi">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12"><button class="btn btn-outline-success w-100"
+                                                        type="button" onclick="addSpesifikasi()">+ Tambah
+                                                        Spesifikasi</button></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <div class="form-group" id="variasi">
+                                                    <label for="discon_price" class="form-label">Variasi
+                                                        Produk</label>
+                                                    <div class="row g-3 mb-2">
+                                                        <div class="col-6">
+                                                            <input type="text" name="variations[0][name]"
+                                                                class="form-control" placeholder="Nama Variasi">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="text" name="variations[0][type]"
+                                                                class="form-control" placeholder="Pilihan Variasi">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="file" name="variations[0][photos]"
+                                                                class="form-control">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="number" name="variations[0][price]"
+                                                                class="form-control" placeholder="Harga Variasi">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="number" name="variations[0][stok]"
+                                                                class="form-control" placeholder="Stok">
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12"><button class="btn btn-outline-success w-100"
+                                                        type="button" onclick="addVariasi()">+ Tambah
+                                                        Variasi</button></div>
                                             </div>
                                         </div>
                                         <div class="col-md-12 ">
@@ -240,5 +315,20 @@
     <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
     <script>
         CKEDITOR.replace('editor1');
+    </script>
+    <script>
+        function addSpesifikasi() {
+            let i = $('.spesifikasiDiv').length;
+            $('#spesifikasi').append(
+                `<div class="row g-3 mb-2 spesifikasiDiv"><div class="col-6"><input type="text" name="spesifications[${i}][name]"class="form-control" placeholder="spesifikasi"/></div><div class="col-6"><input type="text" name="spesifications[${i}][description]" class="form-control" placeholder="deskripsi"></div></div>`
+            );
+        }
+
+        function addVariasi() {
+            let i = $('.variasiDiv').length;
+            $('#variasi').append(
+                `<div class="form-group mb-3 variasiDiv"><div class="row g-3 mb-2"><div class="col-6"><input type="text" name="variations[${i}][name]" class="form-control" placeholder="Nama Variasi"></div><div class="col-6"><input type="text" name="variations[${i}][type]" class="form-control" placeholder="Pilihan Variasi"></div><div class="col-4"><input type="file" name="variations[${i}][photos]" class="form-control"></div><div class="col-4"><input type="number" name="variations[${i}][price]" class="form-control" placeholder="Harga Variasi"></div><div class="col-4"><input type="number" name="variations[${i}][stok]" class="form-control" placeholder="Stok"></div><hr></div>`
+            );
+        }
     </script>
 @endpush

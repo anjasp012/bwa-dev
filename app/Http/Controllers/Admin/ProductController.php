@@ -74,7 +74,10 @@ class ProductController extends Controller
         $data['size_xl'] = $request->size_xl ? true : false;
         $data['size_xxl'] = $request->size_xxl ? true : false;
 
-        Product::create($data);
+        // dd($request->spesifications);
+        $product = Product::create($data);
+        $product->spesifications()->createMany($request->spesifications);
+        $product->variations()->createMany($request->variations);
 
         return redirect()->route('product.index');
     }
