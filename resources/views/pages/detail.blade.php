@@ -167,39 +167,42 @@
                                         <h5>Produk Terkait</h5>
                                     </div>
                                     <div class="col-12">
-                                        @forelse ($productSimilar as $similar)
-                                            <div class="col-6 col-lg-2" data-aos="fade-up">
-                                                <a href="{{ route('detail', $similar->slug) }}"
-                                                    class="component-products d-block">
-                                                    <div class="products-thumbnail">
-                                                        <div class="products-image"
-                                                            style={{ $similar->galleries->count() > 0 ? 'background-image:url(' . asset($similar->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                        <div class="row">
+                                            @forelse ($productSimilar as $similar)
+                                                <div class="col-6 col-lg-2" data-aos="fade-up">
+                                                    <a href="{{ route('detail', $similar->slug) }}"
+                                                        class="component-products d-block">
+                                                        <div class="products-thumbnail">
+                                                            <div class="products-image"
+                                                                style={{ $similar->galleries->count() > 0 ? 'background-image:url(' . asset($similar->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="products-text">
-                                                        {{ $similar->name }}
-                                                    </div>
-                                                    @if ($similar->discon_price > 0)
-                                                        <div class="products-price text-dark fw-lighter text-decoration-line-through"
-                                                            style="font-size: 12px">
-                                                            Rp. {{ number_format($similar->price, '0', '.', '.') }}
+                                                        <div class="products-text">
+                                                            {{ $similar->name }}
                                                         </div>
-                                                        <div class="products-price">
-                                                            Rp. {{ number_format($similar->discon_price, '0', '.', '.') }}
-                                                        </div>
-                                                    @else
-                                                        <div class="products-price text-dark fw-lighter text-decoration-line-through"
-                                                            style="font-size: 12px">
-                                                            Rp. -
-                                                        </div>
-                                                        <div class="products-price">
-                                                            Rp. {{ number_format($similar->price, '0', '.', '.') }}
-                                                        </div>
-                                                    @endif
-                                                </a>
-                                            </div>
-                                        @empty
-                                        @endforelse
+                                                        @if ($similar->discon_price > 0)
+                                                            <div class="products-price text-dark fw-lighter text-decoration-line-through"
+                                                                style="font-size: 12px">
+                                                                Rp. {{ number_format($similar->price, '0', '.', '.') }}
+                                                            </div>
+                                                            <div class="products-price">
+                                                                Rp.
+                                                                {{ number_format($similar->discon_price, '0', '.', '.') }}
+                                                            </div>
+                                                        @else
+                                                            <div class="products-price text-dark fw-lighter text-decoration-line-through"
+                                                                style="font-size: 12px">
+                                                                Rp. -
+                                                            </div>
+                                                            <div class="products-price">
+                                                                Rp. {{ number_format($similar->price, '0', '.', '.') }}
+                                                            </div>
+                                                        @endif
+                                                    </a>
+                                                </div>
+                                            @empty
+                                            @endforelse
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -247,49 +250,6 @@
                                 </div>
                             </div>
                         </section>
-                    </div>
-                </div>
-                <div class="col-lg-3 d-none">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-12" data-aos="fade-up">
-                                <h5>Produk Terkait</h5>
-                            </div>
-                        </div>
-                        <div class="row">
-                            @forelse ($productSimilar as $similar)
-                                <div class="col-6 col-lg-12" data-aos="fade-up">
-                                    <a href="{{ route('detail', $similar->slug) }}" class="component-products d-block">
-                                        <div class="products-thumbnail">
-                                            <div class="products-image"
-                                                style={{ $similar->galleries->count() > 0 ? 'background-image:url(' . asset($similar->galleries->first()->getPhotos()) . ');' : 'background-color:#eee;' }}>
-                                            </div>
-                                        </div>
-                                        <div class="products-text">
-                                            {{ $similar->name }}
-                                        </div>
-                                        @if ($similar->discon_price > 0)
-                                            <div class="products-price text-dark fw-lighter text-decoration-line-through"
-                                                style="font-size: 12px">
-                                                Rp. {{ number_format($similar->price, '0', '.', '.') }}
-                                            </div>
-                                            <div class="products-price">
-                                                Rp. {{ number_format($similar->discon_price, '0', '.', '.') }}
-                                            </div>
-                                        @else
-                                            <div class="products-price text-dark fw-lighter text-decoration-line-through"
-                                                style="font-size: 12px">
-                                                Rp. -
-                                            </div>
-                                            <div class="products-price">
-                                                Rp. {{ number_format($similar->price, '0', '.', '.') }}
-                                            </div>
-                                        @endif
-                                    </a>
-                                </div>
-                            @empty
-                            @endforelse
-                        </div>
                     </div>
                 </div>
             </div>
