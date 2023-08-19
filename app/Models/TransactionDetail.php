@@ -9,12 +9,17 @@ class TransactionDetail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['transaction_id', 'product_id', 'price', 'shipping_status', 'resi', 'code', 'size'];
+    protected $fillable = ['transaction_id', 'product_id', 'variation_id', 'price', 'shipping_status', 'resi', 'code', 'size'];
 
 
     public function product()
     {
         return $this->hasOne(Product::class, 'id', 'product_id');
+    }
+
+    public function variation()
+    {
+        return $this->hasOne(ProductVariation::class, 'id', 'variation_id');
     }
 
     public function transaction()

@@ -41,7 +41,7 @@
                                             class="w-100">
                                     </transition>
                                     <div class="row">
-                                        <div class="col-3 col-lg-4 mt-2" v-for="(photo, index) in photos"
+                                        <div class="col-3 col-lg-3 mt-2" v-for="(photo, index) in photos"
                                             :key="photo.id" data-aos="zoom-in" data-aos-delay="100">
                                             <a href="#" @click="changeActive(index)">
                                                 <img :src="photo.url" class="w-100 thumbnail-image"
@@ -63,7 +63,7 @@
                                                             <div class="owner">
                                                                 {{ $product->user->store_name ?? ($product->user->name ?? '') }}
                                                             </div>
-                                                            @if ($product->discon_price > 0)
+                                                            {{-- @if ($product->discon_price > 0)
                                                                 <div class="mb-0 price text-dark fw-lighter text-decoration-line-through"
                                                                     style="font-size: 14px">
                                                                     Rp. {{ number_format($product->price, '0', '.', '.') }}
@@ -79,9 +79,15 @@
                                                                 <div class="price">Rp.
                                                                     {{ number_format($product->price, '0', '.', '.') }}
                                                                 </div>
-                                                            @endif
-                                                            <div>
-                                                                <div class="d-flex gap-2 mt-">
+                                                            @endif --}}
+                                                            <div class="price" id="hargaVariasi">Rp.
+                                                                {{ number_format($product->variationLowerPrice->price, '0', '.', '.') }}
+                                                                -
+                                                                {{ number_format($product->variationHigherPrice->price, '0', '.', '.') }}
+                                                            </div>
+                                                            <div class="mb-2">
+                                                                <div>Ukuran</div>
+                                                                <div class="d-flex gap-2">
                                                                     <input {{ $product->size_s ? '' : 'disabled' }}
                                                                         type="radio" class="btn-check" name="size"
                                                                         value="s" id="s">
@@ -112,25 +118,24 @@
                                                                     <small class="text-danger">silahkan pilih size !</small>
                                                                 @enderror
                                                             </div>
-                                                        </div>
-                                                        <div class="col-12 mb-3">
-                                                            <div class="row">
-                                                                <div class="col-3">Warna/Ukuran</div>
-                                                                <div class="col-9">
+                                                            <div>
+                                                                <div>Variasi</div>
+                                                                <div class="col-12">
                                                                     @foreach ($product->variations as $variation)
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-dark mb-1">{{ $variation->name }}</button>
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-dark mb-1">{{ $variation->name }}</button>
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-dark mb-1">{{ $variation->name }}</button>
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-dark mb-1">{{ $variation->name }}</button>
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-dark mb-1">{{ $variation->name }}</button>
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-dark mb-1">{{ $variation->name }}</button>
+                                                                        <input
+                                                                            onclick="hargaVariasi({{ number_format($variation->price, '0', '.', '.') }})"
+                                                                            type="radio" class="btn-check"
+                                                                            name="variation" value="{{ $variation->id }}"
+                                                                            id="{{ $variation->id }}">
+                                                                        <label class="btn btn-outline-dark mb-1"
+                                                                            for="{{ $variation->id }}">{{ $variation->name }}
+                                                                        </label>
                                                                     @endforeach
+                                                                    @error('variation')
+                                                                        <small class="text-danger d-block">silahkan pilih
+                                                                            Variasi
+                                                                            !</small>
+                                                                    @enderror
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -282,5 +287,10 @@
                 },
             },
         });
+
+        function hargaVariasi(harga) {
+            $('#hargaVariasi').html('Rp. ' +
+                harga)
+        }
     </script>
 @endpush

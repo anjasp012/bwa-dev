@@ -47,6 +47,7 @@
                                 <tr>
                                     <td>Image</td>
                                     <td>Name &amp; Seller</td>
+                                    <td>Variasi</td>
                                     <td>Size</td>
                                     <td>Price</td>
                                     <td>Menu</td>
@@ -58,7 +59,7 @@
                                 @endphp
                                 @forelse ($carts as $cart)
                                     <tr>
-                                        <td style="width: 20%;">
+                                        <td style="width: 15%;">
                                             @if ($cart->product->galleries->count() > 0)
                                                 <img src="{{ asset($cart->product->galleries->first()->getPhotos()) }}"
                                                     alt="" class="cart-image">
@@ -71,6 +72,12 @@
                                             </div>
                                         </td>
                                         <td style="width: 20%;">
+                                            <div class="product-title">{{ $cart->variation->name }}</div>
+                                            <div class="product-subtitle">
+                                                Variasi
+                                            </div>
+                                        </td>
+                                        <td style="width: 10%;">
                                             <div class="product-title">{{ $cart->size }}</div>
                                             <div class="product-subtitle">
                                                 size
@@ -79,11 +86,11 @@
                                         <td style="width: 35%;">
                                             @if ($cart->product->discon_price > 0)
                                                 <div class="product-title">
-                                                    Rp.{{ number_format($cart->product->discon_price) }}
+                                                    Rp.{{ number_format($cart->variation->price) }}
                                                 </div>
                                             @else
                                                 <div class="product-title">
-                                                    Rp.{{ number_format($cart->product->price) }}
+                                                    Rp.{{ number_format($cart->variation->price) }}
                                                 </div>
                                             @endif
                                             <div class="product-subtitle">IDR</div>
@@ -100,9 +107,9 @@
                                     </tr>
                                     @php
                                         if ($cart->product->discon_price > 0) {
-                                            $totalPrice += $cart->product->discon_price;
+                                            $totalPrice += $cart->variation->price;
                                         } else {
-                                            $totalPrice += $cart->product->price;
+                                            $totalPrice += $cart->variation->price;
                                         }
                                     @endphp
                                 @empty

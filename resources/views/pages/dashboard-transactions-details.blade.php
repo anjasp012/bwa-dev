@@ -6,9 +6,9 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">#STORE0839</h2>
+                <h2 class="dashboard-title">{{ $transaction->code }}</h2>
                 <p class="dashboard-subtitle">
-                    Transactions Details
+                    Transactions Detailss
                 </p>
             </div>
             <div class="dashboard-contennt" id="transactionsDetails">
@@ -33,10 +33,11 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="product-title">
-                                                    Product Name
+                                                    Product Name <small>(Product Variation)</small>
                                                 </div>
                                                 <div class="product-subtitle">
                                                     {{ $transaction->product->name }}
+                                                    <small>({{ $transaction->variation->name }})</small>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
@@ -60,7 +61,7 @@
                                                     Total Amount
                                                 </div>
                                                 <div class="product-subtitle">
-                                                    Rp.{{ number_format($transaction->transaction->total_price) }}
+                                                    Rp.{{ number_format($transaction->price) }}
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">

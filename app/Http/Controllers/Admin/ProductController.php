@@ -131,6 +131,8 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         $item = Product::findOrFail($id);
+        $item->spesifications()->delete();
+        $item->variations()->delete();
         $galeries = $item->galleries()->get()->pluck('photos');
         foreach ($galeries as $galery) {
             File::delete('storage/' . $galery);
