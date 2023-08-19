@@ -118,6 +118,61 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="mt-3">
+                                                <div class="form-group" id="spesifikasi">
+                                                    <label for="discon_price" class="form-label">Spesifikasi
+                                                        Produk</label>
+                                                    <div class="row g-3 mb-2">
+                                                        <div class="col-6 spesifikasiDiv">
+                                                            <input type="text" name="spesifications[0][name]"
+                                                                class="form-control" placeholder="spesifikasi">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="text" name="spesifications[0][description]"
+                                                                class="form-control" placeholder="deskripsi">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12"><button class="btn btn-outline-success w-100"
+                                                        type="button" onclick="addSpesifikasi()">+ Tambah
+                                                        Spesifikasi</button></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mt-3">
+                                                <div class="form-group" id="variasi">
+                                                    <label for="discon_price" class="form-label">Variasi
+                                                        Produk</label>
+                                                    <div class="row g-3 mb-2">
+                                                        <div class="col-6">
+                                                            <input type="text" name="variations[0][name]"
+                                                                class="form-control" placeholder="Nama Variasi">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <input type="text" name="variations[0][type]"
+                                                                class="form-control" placeholder="Pilihan Variasi">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="file" name="variations[0][photos]"
+                                                                class="form-control">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="number" name="variations[0][price]"
+                                                                class="form-control" placeholder="Harga Variasi">
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <input type="number" name="variations[0][stok]"
+                                                                class="form-control" placeholder="Stok">
+                                                        </div>
+                                                        <hr>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12"><button class="btn btn-outline-success w-100"
+                                                        type="button" onclick="addVariasi()">+ Tambah
+                                                        Variasi</button></div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12 mt-3">
                                             <div class="form-group">
                                                 <label class='form-label' for="description">Description</label>
@@ -180,6 +235,21 @@
     <script>
         function thisFileUpload() {
             document.getElementById('file').click()
+        }
+    </script>
+    <script>
+        function addSpesifikasi() {
+            let i = $('.spesifikasiDiv').length;
+            $('#spesifikasi').append(
+                `<div class="row g-3 mb-2 spesifikasiDiv"><div class="col-6"><input type="text" name="spesifications[${i}][name]"class="form-control" placeholder="spesifikasi"/></div><div class="col-6"><input type="text" name="spesifications[${i}][description]" class="form-control" placeholder="deskripsi"></div></div>`
+            );
+        }
+
+        function addVariasi() {
+            let i = $('.variasiDiv').length;
+            $('#variasi').append(
+                `<div class="form-group mb-3 variasiDiv"><div class="row g-3 mb-2"><div class="col-6"><input type="text" name="variations[${i}][name]" class="form-control" placeholder="Nama Variasi"></div><div class="col-6"><input type="text" name="variations[${i}][type]" class="form-control" placeholder="Pilihan Variasi"></div><div class="col-4"><input type="file" name="variations[${i}][photos]" class="form-control"></div><div class="col-4"><input type="number" name="variations[${i}][price]" class="form-control" placeholder="Harga Variasi"></div><div class="col-4"><input type="number" name="variations[${i}][stok]" class="form-control" placeholder="Stok"></div><hr></div>`
+            );
         }
     </script>
 @endpush

@@ -116,6 +116,8 @@ class DashboardProductController extends Controller
             'size_xl' => $request->size_xl ? true : false,
             'size_xxl' => $request->size_xxl ? true : false,
         ]);
+        $product->spesifications()->createMany($request->spesifications);
+        $product->variations()->createMany($request->variations);
 
         return redirect(route('dashboard-product'));
     }

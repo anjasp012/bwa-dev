@@ -121,6 +121,8 @@ class ProductController extends Controller
         $data['size_xxl'] = $request->size_xxl ? true : false;
 
         $item->update($data);
+        $item->spesifications()->createMany($request->spesifications);
+        $item->variations()->createMany($request->variations);
 
         return redirect()->route('product.index');
     }
