@@ -177,7 +177,7 @@
                                                                 class="form-control" placeholder="Pilihan Variasi">
                                                         </div>
                                                         <div class="col-4">
-                                                            <input type="file" name="variations[0][photos]"
+                                                            <input required type="file" name="variations[0][photos]"
                                                                 class="form-control">
                                                         </div>
                                                         <div class="col-4">
@@ -234,7 +234,7 @@
         function addVariasi() {
             let i = $('.variasiDiv').length;
             $('#variasi').append(
-                `<div class="form-group mb-3 variasiDiv"><div class="row g-3 mb-2"><div class="col-6"><input type="text" name="variations[${i}][name]" class="form-control" placeholder="Nama Variasi"></div><div class="col-6"><input type="text" name="variations[${i}][type]" class="form-control" placeholder="Pilihan Variasi"></div><div class="col-4"><input type="file" name="variations[${i}][photos]" class="form-control"></div><div class="col-4"><input type="number" name="variations[${i}][price]" class="form-control" placeholder="Harga Variasi"></div><div class="col-4"><input type="number" name="variations[${i}][stok]" class="form-control" placeholder="Stok"></div><hr></div>`
+                `<div class="form-group mb-3 variasiDiv"><div class="row g-3 mb-2"><div class="col-6"><input type="text" name="variations[${i}][name]" class="form-control" placeholder="Nama Variasi"></div><div class="col-6"><input type="text" name="variations[${i}][type]" class="form-control" placeholder="Pilihan Variasi"></div><div class="col-4"><input required type="file" name="variations[${i}][photos]" class="form-control"></div><div class="col-4"><input type="number" name="variations[${i}][price]" class="form-control" placeholder="Harga Variasi"></div><div class="col-4"><input type="number" name="variations[${i}][stok]" class="form-control" placeholder="Stok"></div><hr></div>`
             );
         }
     </script>

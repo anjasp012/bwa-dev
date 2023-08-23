@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductSpesification;
+use App\Models\ProductVariation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -76,8 +78,16 @@ class ProductController extends Controller
 
         // dd($request->spesifications);
         $product = Product::create($data);
-        $product->spesifications()->createMany($request->spesifications);
-        $product->variations()->createMany($request->variations);
+        if ($request->spesifications) {
+            foreach ($request->spesifications as $spesification) {
+                $this->spesifications($spesification['id'], $product->id, $spesification['name'], $spesification['description']);
+            }
+        }
+        if ($request->variations) {
+            foreach ($request->variations as $variation) {
+                $this->variations($variation['id'], $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+            }
+        }
 
         return redirect()->route('product.index');
     }
@@ -95,11 +105,15 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $item = Product::findOrFail($id);
+        $item = Product::with(['spesifications', 'variations'])->findOrFail($id);
+        $spesifications = $item->spesifications;
+        $variations = $item->variations;
         $users = User::where('store_status', true)->get();
         $categories = Category::all();
         return view('pages.admin.product.edit', [
             'item' => $item,
+            'spesifications' => $spesifications,
+            'variations' => $variations,
             'categories' => $categories,
             'users' => $users,
         ]);
@@ -112,6 +126,7 @@ class ProductController extends Controller
     {
         $item = Product::findOrFail($id);
         $data = $request->all();
+        // dd($data);
 
         $data['slug'] = Str::slug($request->name . '-' . now()->timestamp);
         $data['size_s'] = $request->size_s ? true : false;
@@ -121,8 +136,22 @@ class ProductController extends Controller
         $data['size_xxl'] = $request->size_xxl ? true : false;
 
         $item->update($data);
-        $item->spesifications()->createMany($request->spesifications);
-        $item->variations()->createMany($request->variations);
+        if ($request->spesifications) {
+            foreach ($request->spesifications as $spesification) {
+                $this->spesifications($spesification['id'], $id, $spesification['name'], $spesification['description']);
+            }
+        }
+        if ($request->variations) {
+            foreach ($request->variations as $variation) {
+                $this->variations($variation['id'], $id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+            }
+        }
+        if ($request->spesificationDelete) {
+            ProductSpesification::whereIn('id', $request->spesificationDelete)->delete();
+        }
+        if ($request->variationDelete) {
+            ProductVariation::whereIn('id', $request->variationDelete)->delete();
+        }
 
         return redirect()->route('product.index');
     }
@@ -143,5 +172,42 @@ class ProductController extends Controller
         $item->delete();
 
         return redirect()->back();
+    }
+
+    public function spesifications($id = null, $product_id, $name,  $description)
+    {
+        ProductSpesification::updateOrCreate(['id' => $id], [
+            'product_id' => $product_id,
+            'name' => $name,
+            'description' => $description,
+        ]);
+    }
+
+    public function variations($id = null, $product_id, $name, $type, $price, $stok, $photos)
+    {
+        if ($id != null) {
+            $variation = ProductVariation::find($id);
+            $variation->update(
+                [
+                    'product_id' => $product_id,
+                    'name' => $name,
+                    'type' => $type,
+                    'price' => $price,
+                    'stok' => $stok,
+                    'photos' => $photos != null ? $photos->store('assets/productVariation', 'public') : $variation->photos,
+                ]
+            );
+        } else {
+            ProductVariation::create(
+                [
+                    'product_id' => $product_id,
+                    'name' => $name,
+                    'type' => $type,
+                    'price' => $price,
+                    'stok' => $stok,
+                    'photos' => $photos != null ? $photos->store('assets/productVariation', 'public') : null,
+                ]
+            );
+        }
     }
 }

@@ -12,10 +12,15 @@ class DetailController extends Controller
     public function index($slug)
     {
         $product = Product::with('galleries', 'user', 'variations')->whereSlug($slug)->firstOrFail();
+        $galleries = $product->galleries;
+        $variations = $product->variations;
+        // dd($foto, $fotovariation);
         // dd($product->variationHigherPrice->price);
         $productSimilar = Product::where('category_id', $product->category_id)->where('id', '!=', $product->id)->take(4)->get();
         return view('pages.detail', [
             'product' => $product,
+            'galleries' => $galleries,
+            'variations' => $variations,
             'productSimilar' => $productSimilar
         ]);
     }

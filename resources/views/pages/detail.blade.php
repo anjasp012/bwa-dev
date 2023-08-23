@@ -121,8 +121,9 @@
                                                             <div>
                                                                 <div>Variasi</div>
                                                                 <div class="col-12">
-                                                                    @foreach ($product->variations as $variation)
+                                                                    @foreach ($product->variations as $key => $variation)
                                                                         <input
+                                                                            @click='changeActive({{ $key + $galleries->count() }})'
                                                                             onclick="hargaVariasi({{ number_format($variation->price, '0', '.', '.') }})"
                                                                             type="radio" class="btn-check"
                                                                             name="variation" value="{{ $variation->id }}"
@@ -273,10 +274,16 @@
             data: {
                 activePhoto: 0,
                 photos: [
-                    @foreach ($product->galleries as $key => $gallery)
+                    @foreach ($galleries as $g => $gallery)
                         {
-                            id: {{ $key + 1 }},
+                            id: {{ $g + 1 }},
                             url: "{{ asset($gallery->getPhotos()) }}",
+                        },
+                    @endforeach
+                    @foreach ($variations as $v => $variation)
+                        {
+                            id: {{ $v + $galleries->count() + 1 }},
+                            url: "{{ asset($variation->getPhotos()) }}",
                         },
                     @endforeach
                 ],

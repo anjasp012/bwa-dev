@@ -168,19 +168,33 @@
                                         <div class="col-md-6">
                                             <div class="mt-3">
                                                 <div class="form-group" id="spesifikasi">
+                                                    <div id="spesificationsDelete" class="d-none"></div>
                                                     <label for="discon_price" class="form-label">Spesifikasi
                                                         Produk</label>
-                                                    <div class="row g-3 mb-2">
-                                                        <div class="col-6 spesifikasiDiv">
-                                                            <input required type="text" name="spesifications[0][name]"
-                                                                class="form-control" placeholder="spesifikasi">
+                                                    @foreach ($spesifications as $key => $spesification)
+                                                        <div class="row g-3 mb-2 spesifikasiDiv"
+                                                            id="spesifikasiDiv{{ $key }}">
+                                                            <div class="col-4">
+                                                                <input type="hidden"
+                                                                    name="spesifications[{{ $key }}][id]"
+                                                                    value="{{ $spesification->id }}" id="spesifikasi_id">
+                                                                <input required type="text"
+                                                                    name="spesifications[{{ $key }}][name]"
+                                                                    class="form-control" placeholder="spesifikasi"
+                                                                    value="{{ $spesification->name }}">
+                                                            </div>
+                                                            <div class="col-7">
+                                                                <input required type="text"
+                                                                    name="spesifications[{{ $key }}][description]"
+                                                                    class="form-control" placeholder="deskripsi"
+                                                                    value="{{ $spesification->description }}">
+                                                            </div>
+                                                            <div class="col-1"><button type="button"
+                                                                    class="btn btn-danger w-100"
+                                                                    onclick="deleteSpesifikasi({{ $key }})">⁙</button>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-6">
-                                                            <input required type="text"
-                                                                name="spesifications[0][description]" class="form-control"
-                                                                placeholder="deskripsi">
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
                                                 <div class="col-12"><button class="btn btn-outline-success w-100"
                                                         type="button" onclick="addSpesifikasi()">+ Tambah
@@ -190,31 +204,52 @@
                                         <div class="col-md-6">
                                             <div class="mt-3">
                                                 <div class="form-group" id="variasi">
+                                                    <div id="variationsDelete" class="d-none"></div>
                                                     <label for="discon_price" class="form-label">Variasi
                                                         Produk</label>
-                                                    <div class="row g-3 mb-2">
-                                                        <div class="col-6">
-                                                            <input required type="text" name="variations[0][name]"
-                                                                class="form-control" placeholder="Nama Variasi">
+                                                    @foreach ($variations as $key => $variation)
+                                                        <div class="row g-3 mb-2 variasiDiv"
+                                                            id="variasiDiv{{ $key }}">
+                                                            <div class="col-6">
+                                                                <input type="hidden"
+                                                                    name="variations[{{ $key }}][id]"
+                                                                    value="{{ $variation->id }}" id="variasi_id">
+                                                                <input required type="text"
+                                                                    name="variations[{{ $key }}][name]"
+                                                                    class="form-control" placeholder="Nama Variasi"
+                                                                    value="{{ $variation->name }}">
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <input required type="text"
+                                                                    name="variations[{{ $key }}][type]"
+                                                                    class="form-control" placeholder="Pilihan Variasi"
+                                                                    value="{{ $variation->type }}">
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <input type="file"
+                                                                    name="variations[{{ $key }}][photos]"
+                                                                    class="form-control"
+                                                                    value="{{ $variation->photos }}">
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <input required type="number"
+                                                                    name="variations[{{ $key }}][price]"
+                                                                    class="form-control" placeholder="Harga Variasi"
+                                                                    value="{{ $variation->price }}">
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <input required type="number"
+                                                                    name="variations[{{ $key }}][stok]"
+                                                                    class="form-control" placeholder="Stok"
+                                                                    value="{{ $variation->stok }}">
+                                                            </div>
+                                                            <div class="col-1">
+                                                                <button type="button" class="btn btn-danger w-100"
+                                                                    onclick="deleteVariasi({{ $key }})">⁙</button>
+                                                            </div>
+                                                            <hr>
                                                         </div>
-                                                        <div class="col-6">
-                                                            <input required type="text" name="variations[0][type]"
-                                                                class="form-control" placeholder="Pilihan Variasi">
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <input required type="file" name="variations[0][photos]"
-                                                                class="form-control">
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <input required type="number" name="variations[0][price]"
-                                                                class="form-control" placeholder="Harga Variasi">
-                                                        </div>
-                                                        <div class="col-4">
-                                                            <input required type="number" name="variations[0][stok]"
-                                                                class="form-control" placeholder="Stok">
-                                                        </div>
-                                                        <hr>
-                                                    </div>
+                                                    @endforeach
                                                 </div>
                                                 <div class="col-12"><button class="btn btn-outline-success w-100"
                                                         type="button" onclick="addVariasi()">+ Tambah
@@ -222,7 +257,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-12">
-                                            <div class="form-group mb-3">
+                                            <div class="form-group mb-3 mt-3">
                                                 <label for="description" class="form-label">Deskripsi Produk</label>
                                                 <textarea name="description" id="editor1">{!! $item->description !!}</textarea>
                                             </div>
@@ -305,15 +340,33 @@
         function addSpesifikasi() {
             let i = $('.spesifikasiDiv').length;
             $('#spesifikasi').append(
-                `<div class="row g-3 mb-2 spesifikasiDiv"><div class="col-6"><input required type="text" name="spesifications[${i}][name]"class="form-control" placeholder="spesifikasi"/></div><div class="col-6"><input required type="text" name="spesifications[${i}][description]" class="form-control" placeholder="deskripsi"></div></div>`
+                `<div id="spesifikasiDiv${i}" class="row g-3 mb-2 spesifikasiDiv"><div class="col-4"><input required type="hidden" name="spesifications[${i}][id]" class="form-control" placeholder="id"/><input required type="text" name="spesifications[${i}][name]" class="form-control" placeholder="spesifikasi"/></div><div class="col-7"><input required type="text" name="spesifications[${i}][description]" class="form-control" placeholder="deskripsi"></div><div class="col-1"><button type="button" class="btn btn-danger w-100" onclick="deleteSpesifikasi(${i})">⁙</button></div></div>`
             );
         }
 
         function addVariasi() {
             let i = $('.variasiDiv').length;
             $('#variasi').append(
-                `<div class="form-group mb-3 variasiDiv"><div class="row g-3 mb-2"><div class="col-6"><input required type="text" name="variations[${i}][name]" class="form-control" placeholder="Nama Variasi"></div><div class="col-6"><input required type="text" name="variations[${i}][type]" class="form-control" placeholder="Pilihan Variasi"></div><div class="col-4"><input required type="file" name="variations[${i}][photos]" class="form-control"></div><div class="col-4"><input required type="number" name="variations[${i}][price]" class="form-control" placeholder="Harga Variasi"></div><div class="col-4"><input required type="number" name="variations[${i}][stok]" class="form-control" placeholder="Stok"></div><hr></div>`
+                `<div id="variasiDiv${i}" class="row g-3 mb-2 variasiDiv"><div class="col-6"><input required type="hidden" name="variations[${i}][id]" class="form-control" placeholder="id"/><input required type="text" name="variations[${i}][name]" class="form-control" placeholder="Nama Variasi"></div><div class="col-6"><input required type="text" name="variations[${i}][type]" class="form-control" placeholder="Pilihan Variasi"></div><div class="col-4"><input type="file" name="variations[${i}][photos]" class="form-control"></div><div class="col-4"><input required type="number" name="variations[${i}][price]" class="form-control" placeholder="Harga Variasi"></div><div class="col-3"><input required type="number" name="variations[${i}][stok]" class="form-control" placeholder="Stok"></div><div class="col-1"><button type="button" class="btn btn-danger w-100" onclick="deleteVariasi(${i})">⁙</button></div></div><hr>`
             );
+        }
+
+        function deleteSpesifikasi(i) {
+            let d = $('spesificationDelete').length;
+            var id = $(`#spesifikasiDiv${i}`).find('#spesifikasi_id').val();
+            $('#spesificationsDelete').append(
+                `<input name="spesificationDelete[]" value="${id}">`
+            )
+            $(`#spesifikasiDiv${i}`).remove();
+        }
+
+        function deleteVariasi(i) {
+            let d = $('variationDelete').length;
+            var id = $(`#variasiDiv${i}`).find('#variasi_id').val();
+            $('#variationsDelete').append(
+                `<input name="variationDelete[]" value="${id}">`
+            )
+            $(`#variasiDiv${i}`).remove();
         }
     </script>
 @endpush

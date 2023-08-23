@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\ProductGallery;
+use App\Models\ProductSpesification;
+use App\Models\ProductVariation;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +26,13 @@ class DashboardProductController extends Controller
     public function details(string $id)
     {
         $categories = Category::get();
-        $product = Product::find($id);
+        $product = Product::with(['spesifications', 'variations'])->find($id);
+        $spesifications = $product->spesifications;
+        $variations = $product->variations;
         return view('pages.dashboard-products-details', [
             'product' => $product,
+            'spesifications' => $spesifications,
+            'variations' => $variations,
             'categories' => $categories
         ]);
     }
@@ -73,8 +79,16 @@ class DashboardProductController extends Controller
                 'size_xl' => $request->size_xl ? true : false,
                 'size_xxl' => $request->size_xxl ? true : false,
             ]);
-            $product->spesifications()->createMany($request->spesifications);
-            $product->variations()->createMany($request->variations);
+            if ($request->spesifications) {
+                foreach ($request->spesifications as $spesification) {
+                    $this->spesifications($spesification['id'] ?? null, $product->id, $spesification['name'], $spesification['description']);
+                }
+            }
+            if ($request->variations) {
+                foreach ($request->variations as $variation) {
+                    $this->variations($variation['id'] ?? null, $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+                }
+            }
             foreach ($request->file('thumbnail') as $imagefile) {
                 $name_pic = "product-" . Str::random(10) . '.' . $imagefile->extension();
                 $pic = new ProductGallery();
@@ -116,8 +130,22 @@ class DashboardProductController extends Controller
             'size_xl' => $request->size_xl ? true : false,
             'size_xxl' => $request->size_xxl ? true : false,
         ]);
-        $product->spesifications()->createMany($request->spesifications);
-        $product->variations()->createMany($request->variations);
+        if ($request->spesifications) {
+            foreach ($request->spesifications as $spesification) {
+                $this->spesifications($spesification['id'], $product->id, $spesification['name'], $spesification['description']);
+            }
+        }
+        if ($request->variations) {
+            foreach ($request->variations as $variation) {
+                $this->variations($variation['id'], $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+            }
+        }
+        if ($request->spesificationDelete) {
+            ProductSpesification::whereIn('id', $request->spesificationDelete)->delete();
+        }
+        if ($request->variationDelete) {
+            ProductVariation::whereIn('id', $request->variationDelete)->delete();
+        }
 
         return redirect(route('dashboard-product'));
     }
@@ -145,5 +173,42 @@ class DashboardProductController extends Controller
         File::delete('storage/' . $photo->photos);
         $photo->delete();
         return back();
+    }
+
+    public function spesifications($id = null, $product_id, $name,  $description)
+    {
+        ProductSpesification::updateOrCreate(['id' => $id], [
+            'product_id' => $product_id,
+            'name' => $name,
+            'description' => $description,
+        ]);
+    }
+
+    public function variations($id = null, $product_id, $name, $type, $price, $stok, $photos)
+    {
+        if ($id != null) {
+            $variation = ProductVariation::find($id);
+            $variation->update(
+                [
+                    'product_id' => $product_id,
+                    'name' => $name,
+                    'type' => $type,
+                    'price' => $price,
+                    'stok' => $stok,
+                    'photos' => $photos != null ? $photos->store('assets/productVariation', 'public') : $variation->photos,
+                ]
+            );
+        } else {
+            ProductVariation::create(
+                [
+                    'product_id' => $product_id,
+                    'name' => $name,
+                    'type' => $type,
+                    'price' => $price,
+                    'stok' => $stok,
+                    'photos' => $photos != null ? $photos->store('assets/productVariation', 'public') : null,
+                ]
+            );
+        }
     }
 }
