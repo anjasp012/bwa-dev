@@ -37,7 +37,7 @@
                                                 </div>
                                                 <div class="product-subtitle">
                                                     {{ $transaction->product->name }}
-                                                    <small>({{ $transaction->variation->name }})</small>
+                                                    <small>({{ @$transaction->variation->name }})</small>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
