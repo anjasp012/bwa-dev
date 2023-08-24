@@ -182,8 +182,13 @@
                                                             <div class="col-4">
                                                                 <input type="file"
                                                                     name="variations[{{ $key }}][photos]"
-                                                                    class="form-control"
+                                                                    class="form-control @error('variations[' . $key . '][photos]') is-invalid @enderror"
                                                                     value="{{ $variation->photos }}">
+                                                                @error('variations[' . $key . '][photos]')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                                @enderror
                                                             </div>
                                                             <div class="col-4">
                                                                 <input required type="number"

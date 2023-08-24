@@ -219,7 +219,12 @@
                                                         </div>
                                                         <div class="col-4">
                                                             <input required type="file" name="variations[0][photos]"
-                                                                class="form-control">
+                                                                class="form-control @error('variations[' . $key . '][photos]') is-invalid @enderror">
+                                                            @error('variations[' . $key . '][photos]')
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $message }}</strong>
+                                                                </span>
+                                                            @enderror
                                                         </div>
                                                         <div class="col-4">
                                                             <input type="number" name="variations[0][price]"
