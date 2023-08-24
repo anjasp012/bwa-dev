@@ -123,8 +123,8 @@
                                                                 <div class="col-12">
                                                                     @foreach ($product->variations as $key => $variation)
                                                                         <input
-                                                                            @click='changeActive({{ $key + $galleries->count() }})'
-                                                                            onclick="hargaVariasi({{ number_format($variation->price, '0', '.', '.') }})"
+                                                                            @click="changeActive({{ $key + $galleries->count() }})"
+                                                                            data-harga="{{ number_format($variation->price, '0', '.', '.') }}"
                                                                             type="radio" class="btn-check"
                                                                             name="variation" value="{{ $variation->id }}"
                                                                             id="{{ $variation->id }}">
@@ -295,9 +295,10 @@
             },
         });
 
-        function hargaVariasi(harga) {
+        $('input[type="radio"][name="variation"]').click(function() {
+            var harga = $(this).data('harga');
             $('#hargaVariasi').html('Rp. ' +
                 harga)
-        }
+        });
     </script>
 @endpush
