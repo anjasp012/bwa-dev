@@ -9,8 +9,8 @@ use App\Models\Product;
 use App\Models\ProductSpesification;
 use App\Models\ProductVariation;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
 
@@ -84,8 +84,11 @@ class ProductController extends Controller
             }
         }
         if ($request->variations) {
-            foreach ($request->variations as $variation) {
-                $this->variations($variation['id'], $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+            foreach ($request->variations as $key => $variation) {
+                $validationResult = $this->variations($key, $variation['id'], $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+                if ($validationResult != null && $validationResult->fails()) {
+                    return redirect()->back()->withErrors($validationResult)->withInput();
+                }
             }
         }
 
@@ -142,8 +145,11 @@ class ProductController extends Controller
             }
         }
         if ($request->variations) {
-            foreach ($request->variations as $variation) {
-                $this->variations($variation['id'], $id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+            foreach ($request->variations as $key => $variation) {
+                $validationResult = $this->variations($key, $variation['id'], $id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+                if ($validationResult != null && $validationResult->fails()) {
+                    return redirect()->back()->withErrors($validationResult)->withInput();
+                }
             }
         }
         if ($request->spesificationDelete) {
@@ -183,8 +189,26 @@ class ProductController extends Controller
         ]);
     }
 
-    public function variations($id = null, $product_id, $name, $type, $price, $stok, $photos)
+    public function variations($key, $id = null, $product_id, $name, $type, $price, $stok, $photos)
     {
+        // dd($photos);
+        if ($photos) {
+            $validator = Validator::make(
+                ['variations[' . $key . '][photos]' => $photos],
+                ['variations[' . $key . '][photos]' => 'file|mimes:jpeg,png,pdf|max:1024'],
+                [
+                    'variations*.required' => 'The Photos field is required.',
+                    'variations*.max' => 'The Photos may not be greater than :max kilobytes.',
+                    'variations*.mimes' => 'The Photos must be a JPEG, PNG, or PDF file.'
+                ]
+            );
+            // dd($validator);
+
+            if ($validator->fails()) {
+                // Validation failed
+                return $validator;
+            }
+        }
         if ($id != null) {
             $variation = ProductVariation::find($id);
             $variation->update(
