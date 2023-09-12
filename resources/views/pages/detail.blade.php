@@ -40,7 +40,7 @@
                                         <img :src="photos[activePhoto].url" :key="photos[activePhoto].id" alt=""
                                             class="w-100">
                                     </transition>
-                                    <div class="d-flex overflow-auto" style="gap: 0.9rem">
+                                    <div class="d-flex overflow-auto" style="gap: 0.8rem">
                                         <div class="mt-2" style="width: 24.5%;height: 118px"
                                             v-for="(photo, index) in photos" :key="photo.id" data-aos="zoom-in"
                                             data-aos-delay="100">
