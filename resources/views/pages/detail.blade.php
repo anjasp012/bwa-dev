@@ -42,8 +42,7 @@
                                     </transition>
                                     <div class="d-flex overflow-auto" style="gap: 0.8rem">
                                         <div class="mt-2" style="width: 24.5%;height: 118px"
-                                            v-for="(photo, index) in photos" :key="photo.id" data-aos="zoom-in"
-                                            data-aos-delay="100">
+                                            v-for="(photo, index) in photos" :key="photo.id">
                                             <a href="#" @click="changeActive(index)">
                                                 <img :src="photo.url" style="width: 100px; height: 100px"
                                                     class="thumbnail-image" :class="{ active: index == activePhoto }"
