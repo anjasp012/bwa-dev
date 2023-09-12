@@ -80,12 +80,12 @@ class ProductController extends Controller
         $product = Product::create($data);
         if ($request->spesifications) {
             foreach ($request->spesifications as $spesification) {
-                $this->spesifications($spesification['id'], $product->id, $spesification['name'], $spesification['description']);
+                $this->spesifications(@$spesification['id'], $product->id, $spesification['name'], $spesification['description']);
             }
         }
         if ($request->variations) {
             foreach ($request->variations as $key => $variation) {
-                $validationResult = $this->variations($key, $variation['id'], $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
+                $validationResult = $this->variations($key, @$variation['id'], $product->id, $variation['name'], $variation['type'], $variation['price'], $variation['stok'], $variation['photos'] ?? null);
                 if ($validationResult != null && $validationResult->fails()) {
                     return redirect()->back()->withErrors($validationResult)->withInput();
                 }

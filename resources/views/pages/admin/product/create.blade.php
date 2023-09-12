@@ -219,8 +219,8 @@
                                                         </div>
                                                         <div class="col-4">
                                                             <input required type="file" name="variations[0][photos]"
-                                                                class="form-control @error('variations[' . $key . '][photos]') is-invalid @enderror">
-                                                            @error('variations[' . $key . '][photos]')
+                                                                class="form-control @error('variations[0][photos]') is-invalid @enderror">
+                                                            @error('variations[0][photos]')
                                                                 <span class="invalid-feedback" role="alert">
                                                                     <strong>{{ $message }}</strong>
                                                                 </span>
